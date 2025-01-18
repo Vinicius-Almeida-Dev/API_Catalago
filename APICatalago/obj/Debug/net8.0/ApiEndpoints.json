@@ -342,6 +342,26 @@
   },
   {
     "ContainingType": "APICatalago.Controllers.TestesController",
+    "Method": "GetCategoriasProdutosAsync",
+    "RelativePath": "api/Testes/produtos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[APICatalago.Models.Categoria, APICatalago, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "APICatalago.Controllers.TestesController",
     "Method": "GetTesteTratamentoErro",
     "RelativePath": "api/Testes/TestandMiddlewereTratamentoDeErro",
     "HttpMethod": "GET",
@@ -495,26 +515,6 @@
       }
     ],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "APICatalago.Controllers.CategoriasController",
-    "Method": "GetCategoriasProdutosAsync",
-    "RelativePath": "Categorias/produtos",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[APICatalago.Models.Categoria, APICatalago, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
   },
   {
     "ContainingType": "APICatalago.Controllers.TestesController",

@@ -8193,11 +8193,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Vinicius Almeida\\Documents\\APICatalago\\APICatalago\\APICatalago.csproj",
+      "projectUniqueName": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\APICatalago.csproj",
       "projectName": "APICatalago",
-      "projectPath": "C:\\Users\\Vinicius Almeida\\Documents\\APICatalago\\APICatalago\\APICatalago.csproj",
+      "projectPath": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\APICatalago.csproj",
       "packagesPath": "C:\\Users\\Vinicius Almeida\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Vinicius Almeida\\Documents\\APICatalago\\APICatalago\\obj\\",
+      "outputPath": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

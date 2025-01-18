@@ -208,5 +208,13 @@ namespace APICatalago.Controllers
             }
         }
 
+        // É de categoria - retirado para fazer o padrão repository
+        [HttpGet("produtos")]
+        public async Task<ActionResult<IEnumerable<Categoria>>> GetCategoriasProdutosAsync()
+        {
+            _logger.LogInformation("=================== VERBO: GET - /Categorias/Produtos ===================");
+            return await _context.Categorias.AsNoTracking().Include(p => p.Produtos).ToListAsync();
+        }
+
     }
 }
