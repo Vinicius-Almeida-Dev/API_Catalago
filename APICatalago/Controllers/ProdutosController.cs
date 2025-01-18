@@ -1,7 +1,10 @@
 ﻿using APICatalago.Context;
 using APICatalago.Models;
+using APICatalago.Repositores;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Core.Types;
+using System.ComponentModel.DataAnnotations;
 
 namespace APICatalago.Controllers
 {
@@ -10,107 +13,100 @@ namespace APICatalago.Controllers
     [Route("api/[controller]")] 
     public class ProdutosController : ControllerBase 
     {
-        private readonly AppDbContext? _context; 
-        private readonly ILogger<ProdutosController> _logger;
+        private readonly IProdutosRepository _pRepository;
+        private readonly ILogger<ProdutosController> _logger;        
 
-        public ProdutosController(AppDbContext context, ILogger<ProdutosController> logger) 
+        public ProdutosController(IProdutosRepository pRepository, ILogger<ProdutosController> logger) 
         {
-            _context = context;
+            _pRepository = pRepository;
             _logger = logger;
         }
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Produto>>> GetProdutosAsync()
+        public ActionResult<IEnumerable<Produto>> GetProdutosAsync()
         {
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOS ===================");
-            var produtos = await _context.Produtos.Take(2).AsNoTracking().ToListAsync();  
-
-            if (produtos == null)
+            try
             {
-                return NotFound("Produtos não encontrador");
+                var produtos = _pRepository.GetProdutos().OrderByDescending(p => p.ProdutoId);
+
+                return Ok(produtos);
             }
-            return produtos;
+            catch (Exception e)
+            {
+                _logger.LogInformation($"Produtos não encontrados");
+                return NotFound($"Produtos não encontrados");
+            }
+
+
         }
 
-        [HttpGet("TestandoFromquery")]
-        public async Task<ActionResult<Produto>> GetProdutoIdAsync([FromQuery]int id, [FromQuery] string nome, [FromQuery] string textoTeste)
+        [HttpGet("produto", Name = "ObterProduto")]
+        public ActionResult<Produto> GetProdutoIdAsync([FromQuery, Required]int id)
         {
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOS/TestandoFromquery ===================");
-            var produto = await _context.Produtos.AsNoTracking().FirstOrDefaultAsync(produto => produto.ProdutoId == id);
+            try
+            {
+                var produto = _pRepository.GetProduto(id);
 
-            if (produto is null)            
-                return NotFound("Produto não encontrado");
-            
-
-            return produto;
-        }
-       
-        [HttpGet("primeiro")]
-        [HttpGet("/primeiroAlpha/{valor:alpha:maxlength(5)}")]
-        public async Task<ActionResult<Produto>> GetPrimeiroProdutoAsync()
-        {
-            _logger.LogInformation("=================== VERBO: GET - //primeiroAlpha/ ===================");
-            var produto = await _context.Produtos.AsNoTracking().FirstOrDefaultAsync();
-
-            if (produto is null)
-                return NotFound("Produto não encontrado");
-
-
-            return produto;
-        }
-       
-        [HttpGet("/primeiroProdutoIgnorandoRouteController")] 
-        public async Task<ActionResult<Produto>> GetPrimeiroProdutoIgnorandoRouteControllerAsync()
-        {
-            _logger.LogInformation("=================== VERBO: GET - /primeiroProdutoIgnorandoRouteController ===================");
-            var produto = await _context.Produtos.AsNoTracking().FirstOrDefaultAsync();
-
-            if (produto is null)
-                return NotFound("Produto não encontrado");
-
-
-            return produto;
+                return Ok(produto);
+            }
+            catch (Exception)
+            {
+                _logger.LogInformation($"Produto com id {id} não encontrado");
+                return NotFound($"Produto com id {id} não encontrado");
+            }
+           
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostProdutoAsync(Produto produto)
+        public ActionResult PostProdutoAsync(Produto produto)
         {
             _logger.LogInformation("=================== VERBO: POST - /PRODUTOS ===================");
-            if (produto is null)
-                return BadRequest("Estrutura de parâmetros enviado errado");
-
-            await _context.Produtos.AddAsync(produto); 
-            await _context.SaveChangesAsync();
-
-            return new CreatedAtRouteResult("ObterProduto", new { id = produto.ProdutoId }, produto);
+            try
+            {
+                var produtoCreate = _pRepository.Create(produto);
+                return new CreatedAtRouteResult("ObterProduto", new { id = produtoCreate.ProdutoId }, produtoCreate);
+            }
+            catch (Exception)
+            {
+                _logger.LogInformation($"Dados invalidos");
+                return BadRequest($"Dados invalidos");
+            }
+            
         }
 
-        [HttpPut("{id:int}/{quantidadeEstoque:int}/{param3}")]
-        public async Task<ActionResult> PutProdutoAsync(int id, int quantidadeEstoque, string param3, Produto produto) 
+        [HttpPut("{id:int}")]
+        public ActionResult PutProdutoAsync(int id, Produto produto) 
         {
             _logger.LogInformation("=================== VERBO: PUT - /PRODUTOS ===================");
-            if (id != produto.ProdutoId)
-                return BadRequest();
-
-            _context.Entry(produto).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-
-            return  Ok(produto);
+            try
+            {
+                var produtoUpdate = _pRepository.Update(produto);   
+                return Ok(produtoUpdate);   
+            }
+            catch (Exception)
+            {
+                _logger.LogInformation($"Dados invalidos");
+                return BadRequest($"Dados invalidos");
+            }
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult> DeleteProdutoAsync(int id)
+        public ActionResult DeleteProdutoAsync(int id)
         {
             _logger.LogInformation("=================== VERBO: DELETE - /PRODUTOS ===================");
-            var produto = await _context.Produtos.FirstOrDefaultAsync(p => p.ProdutoId == id);           
-
-            if ( produto is null)
-                return BadRequest();
-
-            _context.Produtos.Remove(produto);
-            await _context.SaveChangesAsync();
-
-            return Ok(produto);
+            try
+            {
+                var produtoUpdate = _pRepository.Delete(id);
+                return Ok(produtoUpdate);
+            }
+            catch (Exception)
+            {
+                _logger.LogInformation($"Produto com id {id} não encontrado");
+                return NotFound($"Produto com id {id} não encontrado");
+            }
+          
         }
     }
 }

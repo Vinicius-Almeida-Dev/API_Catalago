@@ -13,14 +13,24 @@ namespace APICatalago.Repositores
             _context = context;
         }
 
-        public IEnumerable<Produto> GetProdutos()
+        public IQueryable<Produto> GetProdutos()
         {
-            return _context.Produtos.ToList();
+            var produtos = _context.Produtos;
+            
+            if (produtos is null)
+                throw new ArgumentNullException(nameof(produtos));
+            
+            return produtos; 
         }
 
         public Produto GetProduto(int id)
         {
-            return _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
+            var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
+
+            if (produto is null)
+                throw new ArgumentNullException(nameof(produto));
+
+            return produto;
         }
 
         public Produto Create(Produto produto)
@@ -34,27 +44,35 @@ namespace APICatalago.Repositores
             return produto;
         }
         
-        public Produto Update(Produto produto)
+        public bool Update(Produto produto)
         {
             if (produto is null)
                 throw new ArgumentNullException(nameof(produto));
 
-            _context.Entry(produto).State = EntityState.Modified;
-            _context.SaveChanges();
-            return produto;
+            if (_context.Produtos.Any(p => produto.ProdutoId == produto.ProdutoId))
+            {
+                _context.Produtos.Update(produto);
+                _context.SaveChanges();
+                return true;
+            }
+
+            return false;
+            
         }
 
-        public Produto Delete(int id)
+        // Esse método tbm poderia ser boleano
+        public bool Delete(int id)
         {
-            var produto = _context.Produtos.Find(id);
+            var produto = GetProduto(id);
 
-            if (produto is null)
-                throw new ArgumentNullException(nameof(produto));
+            if (produto is not null)
+            {
+                _context.Produtos.Remove(produto);
+                _context.SaveChanges();
+                return true;
+            }
 
-            _context.Produtos.Remove(produto);
-            _context.SaveChanges();
-
-            return produto;
+            return false;           
         }
     }
 }

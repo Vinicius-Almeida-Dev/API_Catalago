@@ -241,33 +241,21 @@
         }
       }
     },
-    "/api/Produtos/TestandoFromquery": {
+    "/api/Produtos/produto": {
       "get": {
         "tags": [
           "Produtos"
         ],
+        "operationId": "ObterProduto",
         "parameters": [
           {
             "name": "id",
             "in": "query",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
             }
-          },
-          {
-            "name": "nome",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "textoTeste",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
           }
         ],
         "responses": {
@@ -294,104 +282,7 @@
         }
       }
     },
-    "/api/Produtos/primeiro": {
-      "get": {
-        "tags": [
-          "Produtos"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Produto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Produto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Produto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/primeiroAlpha/{valor}": {
-      "get": {
-        "tags": [
-          "Produtos"
-        ],
-        "parameters": [
-          {
-            "name": "valor",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Produto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Produto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Produto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/primeiroProdutoIgnorandoRouteController": {
-      "get": {
-        "tags": [
-          "Produtos"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Produto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Produto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Produto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Produtos/{id}/{quantidadeEstoque}/{param3}": {
+    "/api/Produtos/{id}": {
       "put": {
         "tags": [
           "Produtos"
@@ -404,23 +295,6 @@
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
-          },
-          {
-            "name": "quantidadeEstoque",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "param3",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
             }
           }
         ],
@@ -448,9 +322,7 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Produtos/{id}": {
+      },
       "delete": {
         "tags": [
           "Produtos"
