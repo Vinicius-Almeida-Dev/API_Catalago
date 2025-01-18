@@ -38,8 +38,7 @@
               "RelativeToolTip": "APICatalago\\Repositories\\ICategoriaRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T13:01:37.432Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T13:01:37.432Z"
             },
             {
               "$type": "Document",
@@ -47,9 +46,9 @@
               "Title": "CategoriasController.cs",
               "DocumentMoniker": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\Controllers\\CategoriasController.cs",
               "RelativeDocumentMoniker": "APICatalago\\Controllers\\CategoriasController.cs",
-              "ToolTip": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\Controllers\\CategoriasController.cs*",
-              "RelativeToolTip": "APICatalago\\Controllers\\CategoriasController.cs*",
-              "ViewState": "AgIAABAAAAAAAAAAAAA1wBwAAAAyAAAAAAAAAA==",
+              "ToolTip": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\Controllers\\CategoriasController.cs",
+              "RelativeToolTip": "APICatalago\\Controllers\\CategoriasController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAQwCcAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-18T12:24:19.782Z",
               "EditorCaption": ""
@@ -62,7 +61,7 @@
               "RelativeDocumentMoniker": "APICatalago\\Repositories\\CategoriaRepository.cs",
               "ToolTip": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\Repositories\\CategoriaRepository.cs*",
               "RelativeToolTip": "APICatalago\\Repositories\\CategoriaRepository.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBMAAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-18T12:52:59.456Z",
               "EditorCaption": ""
@@ -77,8 +76,7 @@
               "RelativeToolTip": "APICatalago\\Models\\Categoria.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T12:38:53.953Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T12:38:53.953Z"
             }
           ]
         }

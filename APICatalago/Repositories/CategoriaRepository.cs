@@ -17,7 +17,7 @@ namespace APICatalago.Repositores
         {
             var categorias = _context.Categorias.ToList();
 
-            if (categorias != null)
+            if (categorias == null)
                 throw new ArgumentNullException(nameof(categorias));
 
             return categorias;
