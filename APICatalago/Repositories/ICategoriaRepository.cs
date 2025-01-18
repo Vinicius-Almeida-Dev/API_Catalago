@@ -8,6 +8,6 @@ namespace APICatalago.Repositores
         Categoria GetCategoria(int id); 
         Categoria Create(Categoria categoria);  
         Categoria Update(Categoria categoria);
-        Categoria Delete(int id);   
+        Categoria Delete(Categoria id);   
     }
 }

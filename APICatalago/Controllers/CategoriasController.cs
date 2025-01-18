@@ -24,8 +24,19 @@ namespace APICatalago.Controllers
         public ActionResult<IEnumerable<Categoria>> GetCategoriasAsync()
         {
             _logger.LogInformation("=================== VERBO: GET - /Categorias ===================");
-            var categorias = _cRepository.GetCategorias();
-            return Ok(categorias);
+            try
+            {                
+                var categorias = _cRepository.GetCategorias();
+
+                return Ok(categorias);
+
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"Categorias não encontradas");
+                return NotFound($"Categorias não encontradas");
+            }
+            
         }
 
         [HttpGet("{id:int}", Name = "ObterCategoria")]
@@ -33,6 +44,13 @@ namespace APICatalago.Controllers
         {
             _logger.LogInformation("=================== VERBO: GET - /Categorias/Id ===================");
             var categoria = _cRepository.GetCategoria(id);
+
+            if (categoria is null)
+            {
+                _logger.LogInformation($"Categoria com id {id} nao encontrada");
+                return NotFound($"Categoria com id {id} nao encontrada");
+            }
+
             return Ok(categoria);
         }
 
@@ -40,6 +58,14 @@ namespace APICatalago.Controllers
         public ActionResult PostCategoriaAsync(Categoria categoria)
         {
             _logger.LogInformation("=================== VERBO: POST - /Categorias ===================");
+
+
+            if (categoria is null)
+            {
+                _logger.LogInformation($"Dados invalidos");
+                return BadRequest($"Dados invalidos");
+            }
+
             var categoriaCreate = _cRepository.Create(categoria);
             return new CreatedAtRouteResult("ObterCategoria", new { id = categoriaCreate.CategoriaId }, categoriaCreate);
 
@@ -49,6 +75,13 @@ namespace APICatalago.Controllers
         public ActionResult PutCategoriaAsync(int id, Categoria categoria)
         {
             _logger.LogInformation("=================== VERBO: PUT - /Categorias ===================");
+
+            if (categoria.CategoriaId != id)
+            {
+                _logger.LogInformation($"Dados invalidos");
+                return BadRequest($"Dados invalidos");
+            }
+
             var categariaUpdate = _cRepository.Update(categoria);
             return Ok(categoria);
         }
@@ -57,7 +90,15 @@ namespace APICatalago.Controllers
         public ActionResult DeleteProdutoAsync(int id)
         {
             _logger.LogInformation("=================== VERBO: DELETE - /Categorias ===================");
-            var categoriaDeleted = _cRepository.Delete(id);
+            var categoria = _cRepository.GetCategoria(id);
+
+            if (categoria is null)
+            {
+                _logger.LogInformation($"Categoria com id {id} nao encontrada");
+                return NotFound($"Categoria com id {id} nao encontrada");
+            }
+
+            var categoriaDeleted = _cRepository.Delete(categoria);
             return Ok(categoriaDeleted);
 
         }

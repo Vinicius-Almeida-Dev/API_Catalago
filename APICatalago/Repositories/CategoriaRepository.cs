@@ -15,7 +15,12 @@ namespace APICatalago.Repositores
 
         public IEnumerable<Categoria> GetCategorias()
         {
-            return _context.Categorias.ToList();
+            var categorias = _context.Categorias.ToList();
+
+            if (categorias != null)
+                throw new ArgumentNullException(nameof(categorias));
+
+            return categorias;
         }
 
         public Categoria GetCategoria(int id)
@@ -25,9 +30,6 @@ namespace APICatalago.Repositores
 
         public Categoria Create(Categoria categoria)
         {
-            if (categoria is null)
-                throw new ArgumentNullException(nameof(categoria));
-
             _context.Categorias.Add(categoria);
             _context.SaveChanges();
 
@@ -36,27 +38,18 @@ namespace APICatalago.Repositores
 
         public Categoria Update(Categoria categoria)
         {
-            if (categoria is null)
-                throw new ArgumentNullException(nameof(categoria));
-
             _context.Entry(categoria).State = EntityState.Modified; 
             _context.SaveChanges();
 
             return categoria;
         }
 
-        public Categoria Delete(int id)
+        public Categoria Delete(Categoria categoria)
         {
-            var categoria = _context.Categorias.Find(id);
-
-            if (categoria is null)
-                throw new ArgumentNullException(nameof(categoria));
-
             _context.Categorias.Remove(categoria);
             _context.SaveChanges();
 
-            return categoria;
-            
+            return categoria;            
         }
 
        

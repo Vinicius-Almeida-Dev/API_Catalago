@@ -112,11 +112,11 @@ namespace APICatalago.Controllers
         }
 
         // Criando o método GET para consultar o primeiro produto:
-        [HttpGet("primeiro")] // Aqui a rota será chamada da seguinte forma:  URLPadrão + /Produtos/primeiro
-        [HttpGet("/primeiro")] // Dois templates/endpoints de requisição para o mesmo método action, mas pode ser até mais templates.
+        [HttpGet("primeiroT")] // Aqui a rota será chamada da seguinte forma:  URLPadrão + /Produtos/primeiro
+        [HttpGet("/primeiroT")] // Dois templates/endpoints de requisição para o mesmo método action, mas pode ser até mais templates.
         // Aqui irei impor uma restrição alpha para que o endpoint acesse por meio de uma instrução com limitações, pode ser utilizado em outros verbos Http.
         // Verificar mais restrições de rotas existentes futuramente - Esse recurso deve ser utilizado apenas para distinguir duas rotas parecidas, quem deve verificar e mapear as entradas de dados é o controlador
-        [HttpGet("/primeiroAlpha/{valor:alpha:maxlength(5)}")]
+        [HttpGet("/primeiroTAlpha/{valor:alpha:maxlength(5)}")]
         public async Task<ActionResult<Produto>> GetPrimeiroProdutoAsync()
         {
             var produto = await _context.Produtos.FirstOrDefaultAsync();
@@ -129,7 +129,7 @@ namespace APICatalago.Controllers
         }
 
         // Criando o método GET para consultar o primeiro produto,  e ignorando o route controller, utilizando apenas o caminho do verbo http:
-        [HttpGet("/primeiroProdutoIgnorandoRouteController")] // Aqui a rota será chamada da seguinte forma:  URLPadrão + primeiroProdutoIgnorandoRouteController
+        [HttpGet("/primeiroTProdutoIgnorandoRouteController")] // Aqui a rota será chamada da seguinte forma:  URLPadrão + primeiroProdutoIgnorandoRouteController
         public async Task<ActionResult<Produto>> GetPrimeiroProdutoIgnorandoRouteControllerAsync()
         {
             var produto = await _context.Produtos.FirstOrDefaultAsync();
@@ -144,7 +144,7 @@ namespace APICatalago.Controllers
 
 
         // Criando o método POST para criar um produto:
-        [HttpPost]
+        [HttpPost("T")]
         public async Task<ActionResult> PostProdutoAsync(Produto produto)
         {
             if (produto is null)

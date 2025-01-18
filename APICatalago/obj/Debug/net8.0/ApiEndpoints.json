@@ -160,22 +160,6 @@
   },
   {
     "ContainingType": "APICatalago.Controllers.TestesController",
-    "Method": "PostProdutoAsync",
-    "RelativePath": "api/Testes",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "produto",
-        "Type": "APICatalago.Models.Produto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "APICatalago.Controllers.TestesController",
     "Method": "DeleteProdutoAsync",
     "RelativePath": "api/Testes/{id}",
     "HttpMethod": "DELETE",
@@ -323,7 +307,7 @@
   {
     "ContainingType": "APICatalago.Controllers.TestesController",
     "Method": "GetPrimeiroProdutoAsync",
-    "RelativePath": "api/Testes/primeiro",
+    "RelativePath": "api/Testes/primeiroT",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -359,6 +343,22 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "APICatalago.Controllers.TestesController",
+    "Method": "PostProdutoAsync",
+    "RelativePath": "api/Testes/T",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "produto",
+        "Type": "APICatalago.Models.Produto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "APICatalago.Controllers.TestesController",
@@ -517,53 +517,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "APICatalago.Controllers.TestesController",
-    "Method": "GetPrimeiroProdutoAsync",
-    "RelativePath": "primeiro",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "APICatalago.Models.Produto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
     "ContainingType": "APICatalago.Controllers.ProdutosController",
-    "Method": "GetPrimeiroProdutoAsync",
-    "RelativePath": "primeiroAlpha/{valor}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "valor",
-        "Type": "",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "APICatalago.Models.Produto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "APICatalago.Controllers.TestesController",
     "Method": "GetPrimeiroProdutoAsync",
     "RelativePath": "primeiroAlpha/{valor}",
     "HttpMethod": "GET",
@@ -610,8 +564,54 @@
   },
   {
     "ContainingType": "APICatalago.Controllers.TestesController",
+    "Method": "GetPrimeiroProdutoAsync",
+    "RelativePath": "primeiroT",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "APICatalago.Models.Produto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "APICatalago.Controllers.TestesController",
+    "Method": "GetPrimeiroProdutoAsync",
+    "RelativePath": "primeiroTAlpha/{valor}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "valor",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "APICatalago.Models.Produto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "APICatalago.Controllers.TestesController",
     "Method": "GetPrimeiroProdutoIgnorandoRouteControllerAsync",
-    "RelativePath": "primeiroProdutoIgnorandoRouteController",
+    "RelativePath": "primeiroTProdutoIgnorandoRouteController",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
