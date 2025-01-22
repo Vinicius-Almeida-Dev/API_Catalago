@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\0-Meus_Projetos\\APICatalago\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}|APICatalago\\APICatalago.csproj|c:\\0-meus_projetos\\apicatalago\\apicatalago\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}|APICatalago\\APICatalago.csproj|solutionrelative:apicatalago\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}|APICatalago\\APICatalago.csproj|c:\\0-meus_projetos\\apicatalago\\apicatalago\\controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}|APICatalago\\APICatalago.csproj|solutionrelative:apicatalago\\controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\Program.cs",
-              "RelativeDocumentMoniker": "APICatalago\\Program.cs",
-              "ToolTip": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\Program.cs",
-              "RelativeToolTip": "APICatalago\\Program.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
+              "Title": "CategoriasController.cs",
+              "DocumentMoniker": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\Controllers\\CategoriasController.cs",
+              "RelativeDocumentMoniker": "APICatalago\\Controllers\\CategoriasController.cs",
+              "ToolTip": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\Controllers\\CategoriasController.cs",
+              "RelativeToolTip": "APICatalago\\Controllers\\CategoriasController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-22T20:58:49.426Z",
+              "WhenOpened": "2025-01-22T21:05:58.318Z",
               "EditorCaption": ""
             }
           ]
