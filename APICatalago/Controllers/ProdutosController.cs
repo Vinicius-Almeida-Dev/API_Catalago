@@ -1,5 +1,7 @@
 ﻿using APICatalago.Context;
 using APICatalago.Models;
+using APICatalago.Repositories.hybrid;
+using APICatalago.Repositories.hybrid.Interfaces;
 using APICatalago.Repositories.Specific.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +15,10 @@ namespace APICatalago.Controllers
     [Route("api/[controller]")] 
     public class ProdutosController : ControllerBase 
     {
-        private readonly IProdutosRepository _pRepository;
+        private readonly IProdutoHibridoRepository _pRepository;
         private readonly ILogger<ProdutosController> _logger;        
 
-        public ProdutosController(IProdutosRepository pRepository, ILogger<ProdutosController> logger) 
+        public ProdutosController(IProdutoHibridoRepository pRepository, ILogger<ProdutosController> logger) 
         {
             _pRepository = pRepository;
             _logger = logger;
@@ -28,7 +30,7 @@ namespace APICatalago.Controllers
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOS ===================");
             try
             {
-                var produtos = _pRepository.GetProdutos().OrderByDescending(p => p.ProdutoId);
+                var produtos = _pRepository.GetAll().OrderByDescending(p => p.ProdutoId);
 
                 return Ok(produtos);
             }
@@ -47,7 +49,7 @@ namespace APICatalago.Controllers
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOS/TestandoFromquery ===================");
             try
             {
-                var produto = _pRepository.GetProduto(id);
+                var produto = _pRepository.Get(p => p.ProdutoId == id);
 
                 return Ok(produto);
             }
@@ -68,10 +70,10 @@ namespace APICatalago.Controllers
                 var produtoCreate = _pRepository.Create(produto);
                 return new CreatedAtRouteResult("ObterProduto", new { id = produtoCreate.ProdutoId }, produtoCreate);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 _logger.LogInformation($"Dados invalidos");
-                return BadRequest($"Dados invalidos");
+                return BadRequest($"Dados invalidos \nEx: {e}");
             }
             
         }
@@ -98,8 +100,11 @@ namespace APICatalago.Controllers
             _logger.LogInformation("=================== VERBO: DELETE - /PRODUTOS ===================");
             try
             {
-                var produtoUpdate = _pRepository.Delete(id);
-                return Ok(produtoUpdate);
+                var produto = _pRepository.Get(p => p.ProdutoId == id);
+
+
+                var produtoDeleteado = _pRepository.Delete(produto);
+                return Ok(produtoDeleteado);
             }
             catch (Exception)
             {
