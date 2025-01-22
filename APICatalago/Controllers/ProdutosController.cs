@@ -1,6 +1,6 @@
 ﻿using APICatalago.Context;
 using APICatalago.Models;
-using APICatalago.Repositores;
+using APICatalago.Repositories.Specific.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Core.Types;
@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace APICatalago.Controllers
 {
-   
+
     [ApiController]    
     [Route("api/[controller]")] 
     public class ProdutosController : ControllerBase 

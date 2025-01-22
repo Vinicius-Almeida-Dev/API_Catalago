@@ -1,8 +1,9 @@
 ﻿using APICatalago.Context;
 using APICatalago.Models;
+using APICatalago.Repositories.Specific.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace APICatalago.Repositores
+namespace APICatalago.Repositories.Specific
 {
     public class CategoriaRepository : ICategoriaRepository
     {
@@ -38,7 +39,7 @@ namespace APICatalago.Repositores
 
         public Categoria Update(Categoria categoria)
         {
-            _context.Entry(categoria).State = EntityState.Modified; 
+            _context.Entry(categoria).State = EntityState.Modified;
             _context.SaveChanges();
 
             return categoria;
@@ -49,9 +50,9 @@ namespace APICatalago.Repositores
             _context.Categorias.Remove(categoria);
             _context.SaveChanges();
 
-            return categoria;            
+            return categoria;
         }
 
-       
+
     }
 }

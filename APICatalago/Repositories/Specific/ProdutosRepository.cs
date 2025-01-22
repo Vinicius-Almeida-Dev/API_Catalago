@@ -1,8 +1,9 @@
 ﻿using APICatalago.Context;
 using APICatalago.Models;
+using APICatalago.Repositories.Specific.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace APICatalago.Repositores
+namespace APICatalago.Repositories.Specific
 {
     public class ProdutosRepository : IProdutosRepository
     {
@@ -16,11 +17,11 @@ namespace APICatalago.Repositores
         public IQueryable<Produto> GetProdutos()
         {
             var produtos = _context.Produtos;
-            
+
             if (produtos is null)
                 throw new ArgumentNullException(nameof(produtos));
-            
-            return produtos; 
+
+            return produtos;
         }
 
         public Produto GetProduto(int id)
@@ -43,7 +44,7 @@ namespace APICatalago.Repositores
 
             return produto;
         }
-        
+
         public bool Update(Produto produto)
         {
             if (produto is null)
@@ -57,7 +58,7 @@ namespace APICatalago.Repositores
             }
 
             return false;
-            
+
         }
 
         // Esse método tbm poderia ser boleano
@@ -72,7 +73,7 @@ namespace APICatalago.Repositores
                 return true;
             }
 
-            return false;           
+            return false;
         }
     }
 }

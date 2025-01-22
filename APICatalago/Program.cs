@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using APICatalogo.Extensions;
 using APICatalago.Filters;
 using APICatalogo.Logging;
-using APICatalago.Repositores;
+using APICatalago.Repositories.Specific;
+using APICatalago.Repositories.Specific.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,13 +1,13 @@
 ﻿using APICatalago.Models;
 
-namespace APICatalago.Repositores
+namespace APICatalago.Repositories.Specific.Interface
 {
     public interface ICategoriaRepository
     {
         IEnumerable<Categoria> GetCategorias();
-        Categoria GetCategoria(int id); 
-        Categoria Create(Categoria categoria);  
+        Categoria GetCategoria(int id);
+        Categoria Create(Categoria categoria);
         Categoria Update(Categoria categoria);
-        Categoria Delete(Categoria id);   
+        Categoria Delete(Categoria id);
     }
 }

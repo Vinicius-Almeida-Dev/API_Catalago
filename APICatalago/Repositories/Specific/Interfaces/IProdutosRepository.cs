@@ -1,6 +1,6 @@
 ﻿using APICatalago.Models;
 
-namespace APICatalago.Repositores
+namespace APICatalago.Repositories.Specific.Interface
 {
     public interface IProdutosRepository
     {
