@@ -10,6 +10,9 @@ using APICatalago.Filters;
 using APICatalogo.Logging;
 using APICatalago.Repositories.Specific;
 using APICatalago.Repositories.Specific.Interface;
+using APICatalago.Repositories.Generic.Interface;
+using NuGet.Protocol.Core.Types;
+using APICatalago.Repositories.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +41,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(DbCo
 builder.Services.AddTransient<IMeuServico, MeuServico>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IProdutosRepository, ProdutosRepository>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 // O tipo de filtro inserido no conteiner DI, é utilizado como um atributo - ele está em TesteController.
 builder.Services.AddScoped<ApiLoggingFilter>();
