@@ -3,7 +3,7 @@ using APICatalago.Repositories.Generic.Interface;
 
 namespace APICatalago.Repositories.Generic
 {
-    public class Repository<T> : IRepository<T> where T : class // esse where está indicando que o tipo T deve ser uma classe.
+    public class Repository<T> : IRepository<T> where T : class // esse where está indicando que o tipo T deve ser uma classe, como produto e categoria.
     {
         protected readonly AppDbContext _context;
 
