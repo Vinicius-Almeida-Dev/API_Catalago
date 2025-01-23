@@ -11,19 +11,37 @@ using System.ComponentModel.DataAnnotations;
 namespace APICatalago.Controllers
 {
 
-    [ApiController]    
-    [Route("api/[controller]")] 
-    public class ProdutosController : ControllerBase 
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ProdutosController : ControllerBase
     {
         private readonly IProdutoHibridoRepository _pRepository;
-        private readonly ILogger<ProdutosController> _logger;        
+        private readonly ILogger<ProdutosController> _logger;
 
-        public ProdutosController(IProdutoHibridoRepository pRepository, ILogger<ProdutosController> logger) 
+        public ProdutosController(IProdutoHibridoRepository pRepository, ILogger<ProdutosController> logger)
         {
             _pRepository = pRepository;
             _logger = logger;
         }
-        
+
+        [HttpGet("ProdutosPorCategoria ")]
+        public IActionResult GetProdPorCat([FromQuery, Required] int id)
+        {
+            _logger.LogInformation("=================== VERBO: GET - /PRODUTOSPORCATEGORIA ===================");
+            try
+            {
+                var result = _pRepository.GetProdutosPorCategoria(id);
+                return Ok(result);
+
+
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"Produtos não encontrados");
+                return NotFound($"Produtos não encontrados");
+            }
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<Produto>> GetProdutosAsync()
         {
@@ -44,7 +62,7 @@ namespace APICatalago.Controllers
         }
 
         [HttpGet("produto", Name = "ObterProduto")]
-        public ActionResult<Produto> GetProdutoIdAsync([FromQuery, Required]int id)
+        public ActionResult<Produto> GetProdutoIdAsync([FromQuery, Required] int id)
         {
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOS/TestandoFromquery ===================");
             try
@@ -58,7 +76,7 @@ namespace APICatalago.Controllers
                 _logger.LogInformation($"Produto com id {id} não encontrado");
                 return NotFound($"Produto com id {id} não encontrado");
             }
-           
+
         }
 
         [HttpPost]
@@ -75,17 +93,17 @@ namespace APICatalago.Controllers
                 _logger.LogInformation($"Dados invalidos");
                 return BadRequest($"Dados invalidos \nEx: {e}");
             }
-            
+
         }
 
         [HttpPut("{id:int}")]
-        public ActionResult PutProdutoAsync(int id, Produto produto) 
+        public ActionResult PutProdutoAsync(int id, Produto produto)
         {
             _logger.LogInformation("=================== VERBO: PUT - /PRODUTOS ===================");
             try
             {
-                var produtoUpdate = _pRepository.Update(produto);   
-                return Ok(produtoUpdate);   
+                var produtoUpdate = _pRepository.Update(produto);
+                return Ok(produtoUpdate);
             }
             catch (Exception)
             {
@@ -111,7 +129,7 @@ namespace APICatalago.Controllers
                 _logger.LogInformation($"Produto com id {id} não encontrado");
                 return NotFound($"Produto com id {id} não encontrado");
             }
-          
+
         }
     }
 }
