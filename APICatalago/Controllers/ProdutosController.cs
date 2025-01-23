@@ -1,11 +1,6 @@
-﻿using APICatalago.Context;
-using APICatalago.Models;
-using APICatalago.Repositories.hybrid;
-using APICatalago.Repositories.hybrid.Interfaces;
-using APICatalago.Repositories.Specific.Interface;
+﻿using APICatalago.Models;
+using APICatalago.Repositories.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol.Core.Types;
 using System.ComponentModel.DataAnnotations;
 
 namespace APICatalago.Controllers
@@ -15,12 +10,12 @@ namespace APICatalago.Controllers
     [Route("api/[controller]")]
     public class ProdutosController : ControllerBase
     {
-        private readonly IProdutoHibridoRepository _pRepository;
+        private readonly IUnitOfWork _uof;
         private readonly ILogger<ProdutosController> _logger;
 
-        public ProdutosController(IProdutoHibridoRepository pRepository, ILogger<ProdutosController> logger)
+        public ProdutosController(IUnitOfWork uof, ILogger<ProdutosController> logger)
         {
-            _pRepository = pRepository;
+            _uof = uof;
             _logger = logger;
         }
 
@@ -30,12 +25,12 @@ namespace APICatalago.Controllers
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOSPORCATEGORIA ===================");
             try
             {
-                var result = _pRepository.GetProdutosPorCategoria(id);
+                var result = _uof.ProdutoHibridoRepository.GetProdutosPorCategoria(id);
                 return Ok(result);
 
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 _logger.LogInformation($"Produtos não encontrados");
                 return NotFound($"Produtos não encontrados");
@@ -48,11 +43,11 @@ namespace APICatalago.Controllers
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOS ===================");
             try
             {
-                var produtos = _pRepository.GetAll().OrderByDescending(p => p.ProdutoId);
+                var produtos = _uof.ProdutoHibridoRepository.GetAll().OrderByDescending(p => p.ProdutoId);
 
                 return Ok(produtos);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 _logger.LogInformation($"Produtos não encontrados");
                 return NotFound($"Produtos não encontrados");
@@ -67,7 +62,7 @@ namespace APICatalago.Controllers
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOS/TestandoFromquery ===================");
             try
             {
-                var produto = _pRepository.Get(p => p.ProdutoId == id);
+                var produto = _uof.ProdutoHibridoRepository.Get(p => p.ProdutoId == id);
 
                 return Ok(produto);
             }
@@ -85,7 +80,8 @@ namespace APICatalago.Controllers
             _logger.LogInformation("=================== VERBO: POST - /PRODUTOS ===================");
             try
             {
-                var produtoCreate = _pRepository.Create(produto);
+                var produtoCreate = _uof.ProdutoHibridoRepository.Create(produto);
+                _uof.Commit();
                 return new CreatedAtRouteResult("ObterProduto", new { id = produtoCreate.ProdutoId }, produtoCreate);
             }
             catch (Exception e)
@@ -102,7 +98,8 @@ namespace APICatalago.Controllers
             _logger.LogInformation("=================== VERBO: PUT - /PRODUTOS ===================");
             try
             {
-                var produtoUpdate = _pRepository.Update(produto);
+                var produtoUpdate = _uof.ProdutoHibridoRepository.Update(produto);
+                _uof.Commit();
                 return Ok(produtoUpdate);
             }
             catch (Exception)
@@ -118,10 +115,11 @@ namespace APICatalago.Controllers
             _logger.LogInformation("=================== VERBO: DELETE - /PRODUTOS ===================");
             try
             {
-                var produto = _pRepository.Get(p => p.ProdutoId == id);
+                var produto = _uof.ProdutoHibridoRepository.Get(p => p.ProdutoId == id);
 
 
-                var produtoDeleteado = _pRepository.Delete(produto);
+                var produtoDeleteado = _uof.ProdutoHibridoRepository.Delete(produto);
+                _uof.Commit();
                 return Ok(produtoDeleteado);
             }
             catch (Exception)

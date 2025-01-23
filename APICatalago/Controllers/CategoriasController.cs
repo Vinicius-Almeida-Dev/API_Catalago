@@ -1,9 +1,6 @@
-﻿using APICatalago.Context;
-using APICatalago.Models;
-using APICatalago.Repositories.Generic.Interface;
-using APICatalago.Repositories.Specific.Interface;
+﻿using APICatalago.Models;
+using APICatalago.Repositories.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace APICatalago.Controllers
 {
@@ -13,12 +10,31 @@ namespace APICatalago.Controllers
     public class CategoriasController : ControllerBase
     {
         private readonly ILogger<CategoriasController> _logger;
-        private readonly IRepository<Categoria> _repository; // Olhando para o repositório genérico
+        private readonly IUnitOfWork _uof;
 
-        public CategoriasController(ILogger<CategoriasController> logger, IRepository<Categoria> cRepository)
+        public CategoriasController(IUnitOfWork uof, ILogger<CategoriasController> logger)
         {
+            _uof = uof;
             _logger = logger;
-            _repository = cRepository;
+        }
+
+        [HttpGet("CategoriaComProduto")]
+        public ActionResult<IEnumerable<Categoria>> GetCatComProd()
+        {
+            _logger.LogInformation("=================== VERBO: GET - /Categorias ===================");
+            try
+            {
+                var categorias = _uof.CategoriaHibridoRepository.GetCategoriasComProdutos();
+
+                return Ok(categorias);
+
+            }
+            catch (Exception)
+            {
+                _logger.LogInformation($"Categorias não encontradas");
+                return NotFound($"Categorias não encontradas");
+            }
+
         }
 
         [HttpGet]
@@ -27,7 +43,7 @@ namespace APICatalago.Controllers
             _logger.LogInformation("=================== VERBO: GET - /Categorias ===================");
             try
             {                
-                var categorias = _repository.GetAll();
+                var categorias = _uof.CategoriaHibridoRepository.GetAll();
 
                 return Ok(categorias);
 
@@ -44,7 +60,7 @@ namespace APICatalago.Controllers
         public ActionResult<Categoria> GetCategoriaIdAsync(int id)
         {
             _logger.LogInformation("=================== VERBO: GET - /Categorias/Id ===================");
-            var categoria = _repository.Get(c => c.CategoriaId == id);
+            var categoria = _uof.CategoriaHibridoRepository.Get(c => c.CategoriaId == id);
 
             if (categoria is null)
             {
@@ -67,7 +83,9 @@ namespace APICatalago.Controllers
                 return BadRequest($"Dados invalidos");
             }
 
-            var categoriaCreate = _repository.Create(categoria);
+            var categoriaCreate = _uof.CategoriaHibridoRepository.Create(categoria);
+            _uof.Commit();
+
             return new CreatedAtRouteResult("ObterCategoria", new { id = categoriaCreate.CategoriaId }, categoria);
 
         }
@@ -83,7 +101,9 @@ namespace APICatalago.Controllers
                 return BadRequest($"Dados invalidos");
             }
 
-            var categariaUpdate = _repository.Update(categoria);
+            var categariaUpdate = _uof.CategoriaHibridoRepository.Update(categoria);
+            _uof.Commit();
+
             return Ok(categoria);
         }
 
@@ -91,7 +111,7 @@ namespace APICatalago.Controllers
         public ActionResult DeleteProdutoAsync(int id)
         {
             _logger.LogInformation("=================== VERBO: DELETE - /Categorias ===================");
-            var categoria = _repository.Get(c => c.CategoriaId == id);
+            var categoria = _uof.CategoriaHibridoRepository.Get(c => c.CategoriaId == id);
 
             if (categoria is null)
             {
@@ -99,7 +119,9 @@ namespace APICatalago.Controllers
                 return NotFound($"Categoria com id {id} nao encontrada");
             }
 
-            var categoriaDeleted = _repository.Delete(categoria);
+            var categoriaDeleted = _uof.CategoriaHibridoRepository.Delete(categoria);
+            _uof.Commit();
+
             return Ok(categoriaDeleted);
 
         }

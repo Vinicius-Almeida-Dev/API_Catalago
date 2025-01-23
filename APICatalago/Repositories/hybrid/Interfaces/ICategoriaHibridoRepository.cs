@@ -5,5 +5,6 @@ namespace APICatalago.Repositories.hybrid.Interfaces
 {
     public interface ICategoriaHibridoRepository :IRepository<Categoria>
     {
+        IEnumerable<Categoria> GetCategoriasComProdutos();
     }
 }
