@@ -1,4 +1,5 @@
-﻿using APICatalago.Models;
+﻿using APICatalago.DTOs;
+using APICatalago.Models;
 using APICatalago.Repositories.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,14 +20,30 @@ namespace APICatalago.Controllers
         }
 
         [HttpGet("CategoriaComProduto")]
-        public ActionResult<IEnumerable<Categoria>> GetCatComProd()
+        public ActionResult<IEnumerable<CategoriaComProdutoDTO>> GetCatComProd()
         {
             _logger.LogInformation("=================== VERBO: GET - /Categorias ===================");
             try
             {
                 var categorias = _uof.CategoriaHibridoRepository.GetCategoriasComProdutos();
 
-                return Ok(categorias);
+                var listCategoriasCPDTO = new List<CategoriaComProdutoDTO>();
+                var categoriaCPDTO = new CategoriaComProdutoDTO();
+
+                foreach (var categoria in categorias)
+                {
+                    categoriaCPDTO = new CategoriaComProdutoDTO
+                    {
+                        CategoriaId = categoria.CategoriaId,
+                        Nome = categoria.Nome,
+                        ImagemUrl = categoria.ImagemUrl,
+                        Produtos = categoria.Produtos,
+                    };
+
+                    listCategoriasCPDTO.Add(categoriaCPDTO);    
+                }
+
+                return Ok(listCategoriasCPDTO);
 
             }
             catch (Exception)
@@ -45,8 +62,22 @@ namespace APICatalago.Controllers
             {                
                 var categorias = _uof.CategoriaHibridoRepository.GetAll();
 
-                return Ok(categorias);
+                var categoriasDTO = new List<CategoriaDTO>();
+                var categoriaDTO = new CategoriaDTO();
 
+                foreach ( var categoria in categorias)
+                {
+                    categoriaDTO = new CategoriaDTO()
+                    {
+                        CategoriaId = categoria.CategoriaId,
+                        Nome = categoria.Nome,
+                        ImagemUrl = categoria.ImagemUrl
+                    };
+
+                    categoriasDTO.Add(categoriaDTO);
+                }
+
+                return Ok(categoriaDTO);
             }
             catch (Exception)
             {
@@ -57,10 +88,18 @@ namespace APICatalago.Controllers
         }
 
         [HttpGet("{id:int}", Name = "ObterCategoria")]
-        public ActionResult<Categoria> GetCategoriaIdAsync(int id)
+        public ActionResult<CategoriaDTO> GetCategoriaIdAsync(int id)
         {
             _logger.LogInformation("=================== VERBO: GET - /Categorias/Id ===================");
             var categoria = _uof.CategoriaHibridoRepository.Get(c => c.CategoriaId == id);
+
+            var categoriaDTO = new CategoriaDTO()
+            {
+                CategoriaId = categoria.CategoriaId,
+                Nome = categoria.Nome,
+                ImagemUrl = categoria.ImagemUrl
+               
+            };
 
             if (categoria is null)
             {

@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.Xml;
 using System.Text.Json.Serialization;
-using APICatalago.Services;
 using Microsoft.AspNetCore.Mvc;
 using APICatalogo.Extensions;
 using APICatalago.Filters;
@@ -41,7 +40,6 @@ builder.Services.AddSwaggerGen();
 
 // Injetando dependências no conteiner DI nativo
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(DbConnection));
-builder.Services.AddTransient<IMeuServico, MeuServico>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IProdutosRepository, ProdutosRepository>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

@@ -231,58 +231,6 @@
   },
   {
     "ContainingType": "APICatalago.Controllers.TestesController",
-    "Method": "GetTestandoFromServices",
-    "RelativePath": "api/Testes/MeuServicoTesteFromServices",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "nome",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.String",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "APICatalago.Controllers.TestesController",
-    "Method": "GetTestandoMeuServicoInjecaoDependecias",
-    "RelativePath": "api/Testes/MeuServicoTesteInjecaoDependencias",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "nome",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.String",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "APICatalago.Controllers.TestesController",
     "Method": "GetPrimeiroProdutoAsync",
     "RelativePath": "api/Testes/primeiroT",
     "HttpMethod": "GET",
@@ -445,7 +393,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "APICatalago.Models.Categoria",
+        "Type": "APICatalago.DTOs.CategoriaDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -503,7 +451,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[APICatalago.Models.Categoria, APICatalago, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[APICatalago.DTOs.CategoriaComProdutoDTO, APICatalago, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

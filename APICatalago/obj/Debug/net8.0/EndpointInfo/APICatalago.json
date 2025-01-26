@@ -18,7 +18,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Categoria"
+                    "$ref": "#/components/schemas/CategoriaComProdutoDTO"
                   }
                 }
               },
@@ -26,7 +26,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Categoria"
+                    "$ref": "#/components/schemas/CategoriaComProdutoDTO"
                   }
                 }
               },
@@ -34,7 +34,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Categoria"
+                    "$ref": "#/components/schemas/CategoriaComProdutoDTO"
                   }
                 }
               }
@@ -133,17 +133,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Categoria"
+                  "$ref": "#/components/schemas/CategoriaDTO"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Categoria"
+                  "$ref": "#/components/schemas/CategoriaDTO"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Categoria"
+                  "$ref": "#/components/schemas/CategoriaDTO"
                 }
               }
             }
@@ -402,82 +402,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Testes/MeuServicoTesteInjecaoDependencias": {
-      "get": {
-        "tags": [
-          "Testes"
-        ],
-        "parameters": [
-          {
-            "name": "nome",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Testes/MeuServicoTesteFromServices": {
-      "get": {
-        "tags": [
-          "Testes"
-        ],
-        "parameters": [
-          {
-            "name": "nome",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
           }
         }
       }
@@ -946,6 +870,61 @@
   "components": {
     "schemas": {
       "Categoria": {
+        "required": [
+          "imagemUrl",
+          "nome"
+        ],
+        "type": "object",
+        "properties": {
+          "categoriaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nome": {
+            "maxLength": 80,
+            "minLength": 0,
+            "type": "string"
+          },
+          "imagemUrl": {
+            "maxLength": 300,
+            "minLength": 0,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategoriaComProdutoDTO": {
+        "required": [
+          "imagemUrl",
+          "nome",
+          "produtos"
+        ],
+        "type": "object",
+        "properties": {
+          "categoriaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nome": {
+            "maxLength": 80,
+            "minLength": 0,
+            "type": "string"
+          },
+          "imagemUrl": {
+            "maxLength": 300,
+            "minLength": 0,
+            "type": "string"
+          },
+          "produtos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Produto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategoriaDTO": {
         "required": [
           "imagemUrl",
           "nome"

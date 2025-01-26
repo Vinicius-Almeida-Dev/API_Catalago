@@ -1,7 +1,6 @@
 ﻿using APICatalago.Context;
 using APICatalago.Filters;
 using APICatalago.Models;
-using APICatalago.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,31 +16,24 @@ namespace APICatalago.Controllers
         private readonly AppDbContext? _context; // private = a variável criada só poderá ser acessada por está classe
                                                  // readonly = a variável criada só podera ser utilizada para leitura, nunca sobrescrita.
 
-
-        private readonly IMeuServico _injetantoMeuServico;
         private readonly IConfiguration _config;
         private readonly ILogger<ApiLoggingFilter> _logger;
 
-        public TestesController(AppDbContext context, IMeuServico injetantoMeuServico, IConfiguration config, ILogger<ApiLoggingFilter> logger)
+        public TestesController(AppDbContext context, IConfiguration config, ILogger<ApiLoggingFilter> logger)
         {
             _context = context;
-            _injetantoMeuServico = injetantoMeuServico;
             _config = config;
             _logger = logger;
         }
 
-        [HttpGet("MeuServicoTesteInjecaoDependencias")]
-        public ActionResult<string> GetTestandoMeuServicoInjecaoDependecias([FromQuery] string nome)
-        {
-            return _injetantoMeuServico.Saudacao(nome);
-        }
+        
 
         //Testando from Services por meio de injeção de dependencias por inferência.
-        [HttpGet("MeuServicoTesteFromServices")]
-        public ActionResult<string> GetTestandoFromServices([FromServices] IMeuServico meuServico, [FromQuery] string nome)
-        {
-            return meuServico.Saudacao(nome);
-        }
+        //[HttpGet("MeuServicoTesteFromServices")]
+        //public ActionResult<string> GetTestandoFromServices([FromServices] IMeuServico meuServico, [FromQuery] string nome)
+        //{
+        //    return meuServico.Saudacao(nome);
+        //}
 
         // Testando a injeção de dependencias (DI) da interface IConfiguration - Ela serve para recuperar os valor do appsettings.json
         [HttpGet("LerArquivosConfiguracao")]
