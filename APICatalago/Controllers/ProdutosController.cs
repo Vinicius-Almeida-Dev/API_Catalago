@@ -20,7 +20,7 @@ namespace APICatalago.Controllers
         }
 
         [HttpGet("ProdutosPorCategoria ")]
-        public IActionResult GetProdPorCat([FromQuery, Required] int id)
+        public ActionResult<Produto> GetProdPorCat([FromQuery, Required] int id)
         {
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOSPORCATEGORIA ===================");
             try

@@ -30,7 +30,7 @@ namespace APICatalago.Controllers
 
                 //var categoriasDto = CategoriaDTOMappingExtensions.ToCategoriaDTOList(categorias);
 
-                return Ok(categorias.ToCategoriaDTOList());
+                return Ok(categorias.ToCategoriaComProdutoDTOList());
 
             }
             catch (Exception)
@@ -49,22 +49,8 @@ namespace APICatalago.Controllers
             {                
                 var categorias = _uof.CategoriaHibridoRepository.GetAll();
 
-                var categoriasDTO = new List<CategoriaDTO>();
-                var categoriaDTO = new CategoriaDTO();
 
-                foreach ( var categoria in categorias)
-                {
-                    categoriaDTO = new CategoriaDTO()
-                    {
-                        CategoriaId = categoria.CategoriaId,
-                        Nome = categoria.Nome,
-                        ImagemUrl = categoria.ImagemUrl
-                    };
-
-                    categoriasDTO.Add(categoriaDTO);
-                }
-
-                return Ok(categoriaDTO);
+                return Ok(categorias.ToCategoriaDTOList());
             }
             catch (Exception)
             {
@@ -80,21 +66,13 @@ namespace APICatalago.Controllers
             _logger.LogInformation("=================== VERBO: GET - /Categorias/Id ===================");
             var categoria = _uof.CategoriaHibridoRepository.Get(c => c.CategoriaId == id);
 
-            var categoriaDTO = new CategoriaDTO()
-            {
-                CategoriaId = categoria.CategoriaId,
-                Nome = categoria.Nome,
-                ImagemUrl = categoria.ImagemUrl
-               
-            };
-
             if (categoria is null)
             {
                 _logger.LogInformation($"Categoria com id {id} nao encontrada");
                 return NotFound($"Categoria com id {id} nao encontrada");
             }
 
-            return Ok(categoria);
+            return Ok(categoria.ToCategoriaDTO());
         }
 
         [HttpPost]
