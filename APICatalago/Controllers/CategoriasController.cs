@@ -1,4 +1,5 @@
 ﻿using APICatalago.DTOs;
+using APICatalago.Mappings;
 using APICatalago.Models;
 using APICatalago.Repositories.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
@@ -22,28 +23,14 @@ namespace APICatalago.Controllers
         [HttpGet("CategoriaComProduto")]
         public ActionResult<IEnumerable<CategoriaComProdutoDTO>> GetCatComProd()
         {
-            _logger.LogInformation("=================== VERBO: GET - /Categorias ===================");
+            _logger.LogInformation("=================== VERBO: GET - /Categorias Com Produtos ===================");
             try
             {
                 var categorias = _uof.CategoriaHibridoRepository.GetCategoriasComProdutos();
 
-                var listCategoriasCPDTO = new List<CategoriaComProdutoDTO>();
-                var categoriaCPDTO = new CategoriaComProdutoDTO();
+                //var categoriasDto = CategoriaDTOMappingExtensions.ToCategoriaDTOList(categorias);
 
-                foreach (var categoria in categorias)
-                {
-                    categoriaCPDTO = new CategoriaComProdutoDTO
-                    {
-                        CategoriaId = categoria.CategoriaId,
-                        Nome = categoria.Nome,
-                        ImagemUrl = categoria.ImagemUrl,
-                        Produtos = categoria.Produtos,
-                    };
-
-                    listCategoriasCPDTO.Add(categoriaCPDTO);    
-                }
-
-                return Ok(listCategoriasCPDTO);
+                return Ok(categorias.ToCategoriaDTOList());
 
             }
             catch (Exception)
