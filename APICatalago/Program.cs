@@ -1,7 +1,5 @@
 using APICatalago.Context;
-using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.Xml;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using APICatalogo.Extensions;
@@ -10,7 +8,6 @@ using APICatalogo.Logging;
 using APICatalago.Repositories.Specific;
 using APICatalago.Repositories.Specific.Interface;
 using APICatalago.Repositories.Generic.Interface;
-using NuGet.Protocol.Core.Types;
 using APICatalago.Repositories.Generic;
 using APICatalago.Repositories.hybrid.Interfaces;
 using APICatalago.Repositories.hybrid;
@@ -47,7 +44,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IProdutoHibridoRepository, ProdutoHibridoRepository>();
 builder.Services.AddScoped<ICategoriaHibridoRepository, CategoriaHibridoRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddAutoMapper(typeof(Program));   
+builder.Services.AddAutoMapper(typeof(ProdutoDTOMappingProfile));   
 
 // O tipo de filtro inserido no conteiner DI, é utilizado como um atributo - ele está em TesteController.
 builder.Services.AddScoped<ApiLoggingFilter>();

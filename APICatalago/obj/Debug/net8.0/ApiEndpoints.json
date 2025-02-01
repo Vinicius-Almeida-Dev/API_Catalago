@@ -9,7 +9,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[APICatalago.Models.Produto, APICatalago, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[APICatalago.DTOs.ProdutoDTO, APICatalago, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -28,12 +28,22 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "produto",
-        "Type": "APICatalago.Models.Produto",
+        "Name": "produtoDto",
+        "Type": "APICatalago.DTOs.ProdutoDTO",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "APICatalago.DTOs.ProdutoDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "APICatalago.Controllers.ProdutosController",
@@ -49,12 +59,22 @@
         "IsRequired": true
       },
       {
-        "Name": "produto",
-        "Type": "APICatalago.Models.Produto",
+        "Name": "produtoDto",
+        "Type": "APICatalago.DTOs.ProdutoDTO",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "APICatalago.DTOs.ProdutoDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "APICatalago.Controllers.ProdutosController",
@@ -88,7 +108,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "APICatalago.Models.Produto",
+        "Type": "APICatalago.DTOs.ProdutoDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -115,7 +135,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "APICatalago.Models.Produto",
+        "Type": "APICatalago.DTOs.ProdutoDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
