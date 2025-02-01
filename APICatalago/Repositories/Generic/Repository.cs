@@ -1,5 +1,6 @@
 ﻿using APICatalago.Context;
 using APICatalago.Repositories.Generic.Interface;
+using System.Linq.Expressions;
 
 namespace APICatalago.Repositories.Generic
 {
@@ -18,7 +19,7 @@ namespace APICatalago.Repositories.Generic
             return _context.Set<T>().ToList();
         }
 
-        public T? Get(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        public T? Get(Expression<Func<T, bool>> predicate)
         {
             return _context.Set<T>().FirstOrDefault(predicate);
         }

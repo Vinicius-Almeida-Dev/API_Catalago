@@ -1,5 +1,5 @@
 ﻿using APICatalago.DTOs;
-using APICatalago.Mappings;
+using APICatalago.DTOs.Mappings;
 using APICatalago.Models;
 using APICatalago.Repositories.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
@@ -42,7 +42,7 @@ namespace APICatalago.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Categoria>> GetCategoriasAsync()
+        public ActionResult<IEnumerable<CategoriaDTO>> GetCategoriasAsync()
         {
             _logger.LogInformation("=================== VERBO: GET - /Categorias ===================");
             try
@@ -76,7 +76,7 @@ namespace APICatalago.Controllers
         }
 
         [HttpPost]
-        public ActionResult PostCategoriaAsync(Categoria categoria)
+        public ActionResult<CategoriaDTO> PostCategoriaAsync(Categoria categoria)
         {
             _logger.LogInformation("=================== VERBO: POST - /Categorias ===================");
 
@@ -90,12 +90,14 @@ namespace APICatalago.Controllers
             var categoriaCreate = _uof.CategoriaHibridoRepository.Create(categoria);
             _uof.Commit();
 
-            return new CreatedAtRouteResult("ObterCategoria", new { id = categoriaCreate.CategoriaId }, categoria);
+            categoriaCreate.ToCategoriaDTO();
+
+            return new CreatedAtRouteResult("ObterCategoria", new { id = categoriaCreate.CategoriaId }, categoriaCreate.ToCategoriaDTO());
 
         }
 
         [HttpPut("{id:int}")]
-        public ActionResult PutCategoriaAsync(int id, Categoria categoria)
+        public ActionResult<CategoriaDTO> PutCategoriaAsync(int id, Categoria categoria)
         {
             _logger.LogInformation("=================== VERBO: PUT - /Categorias ===================");
 
@@ -108,11 +110,11 @@ namespace APICatalago.Controllers
             var categariaUpdate = _uof.CategoriaHibridoRepository.Update(categoria);
             _uof.Commit();
 
-            return Ok(categoria);
+            return Ok(categoria.ToCategoriaDTO());
         }
 
         [HttpDelete("{id:int}")]
-        public ActionResult DeleteProdutoAsync(int id)
+        public ActionResult<CategoriaDTO> DeleteProdutoAsync(int id)
         {
             _logger.LogInformation("=================== VERBO: DELETE - /Categorias ===================");
             var categoria = _uof.CategoriaHibridoRepository.Get(c => c.CategoriaId == id);
@@ -126,7 +128,7 @@ namespace APICatalago.Controllers
             var categoriaDeleted = _uof.CategoriaHibridoRepository.Delete(categoria);
             _uof.Commit();
 
-            return Ok(categoriaDeleted);
+            return Ok(categoriaDeleted.ToCategoriaDTO());
 
         }
 

@@ -15,6 +15,7 @@ using APICatalago.Repositories.Generic;
 using APICatalago.Repositories.hybrid.Interfaces;
 using APICatalago.Repositories.hybrid;
 using APICatalago.Repositories.UnitOfWork;
+using APICatalago.DTOs.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,7 +46,8 @@ builder.Services.AddScoped<IProdutosRepository, ProdutosRepository>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IProdutoHibridoRepository, ProdutoHibridoRepository>();
 builder.Services.AddScoped<ICategoriaHibridoRepository, CategoriaHibridoRepository>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();  
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddAutoMapper(typeof(Program));   
 
 // O tipo de filtro inserido no conteiner DI, é utilizado como um atributo - ele está em TesteController.
 builder.Services.AddScoped<ApiLoggingFilter>();
