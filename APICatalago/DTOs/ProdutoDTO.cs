@@ -23,5 +23,7 @@ namespace APICatalago.DTOs
         [Required]
         [StringLength(300)]
         public string? ImagemUrl { get; set; }
+
+        public int CategoriaId { get; set; }
     }
 }
