@@ -571,3 +571,6 @@ C:\0-Meus_Projetos\APICatalago\APICatalago\obj\Debug\net8.0\APICatalago.genrunti
 C:\0-Meus_Projetos\APICatalago\APICatalago\obj\Debug\net8.0\ref\APICatalago.dll
 C:\0-Meus_Projetos\APICatalago\APICatalago\bin\Debug\net8.0\AutoMapper.dll
 C:\0-Meus_Projetos\APICatalago\APICatalago\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\0-Meus_Projetos\APICatalago\APICatalago\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\0-Meus_Projetos\APICatalago\APICatalago\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\0-Meus_Projetos\APICatalago\APICatalago\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll

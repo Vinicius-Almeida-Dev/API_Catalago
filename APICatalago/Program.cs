@@ -25,7 +25,7 @@ builder.Services.AddControllers(options =>
 .AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-});
+}).AddNewtonsoftJson();
 
 //Utilizando o acesso dos arquivos de configuração
 var valor = builder.Configuration["Secao1:ChaveS1"];

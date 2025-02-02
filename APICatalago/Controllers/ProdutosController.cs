@@ -2,8 +2,11 @@
 using APICatalago.Models;
 using APICatalago.Repositories.UnitOfWork;
 using AutoMapper;
+using Azure;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
 
 namespace APICatalago.Controllers
 {
@@ -113,6 +116,37 @@ namespace APICatalago.Controllers
             }
 
         }
+
+        [HttpPatch("{id}/UpdatePartial")]
+        public ActionResult<ProdutoDTOUpdateResponse> Patch(int id,
+            JsonPatchDocument<ProdutoDTOUpdateRequest> patchProdutoDTO)
+        {
+            if (patchProdutoDTO is null || id <= 0)
+                return BadRequest();
+
+            var produto = _uof.ProdutoHibridoRepository.Get(p => p.ProdutoId == id);
+            
+            if (produto is null) 
+                return NotFound();
+
+            var produtoUpRequest = _mapper.Map<ProdutoDTOUpdateRequest>(produto);
+
+            patchProdutoDTO.ApplyTo(produtoUpRequest, ModelState);
+
+            if (!ModelState.IsValid || !TryValidateModel(produtoUpRequest))
+                return BadRequest(ModelState);
+
+           // _mapper.Map(produtoUpRequest, produto);
+            _mapper.Map<ProdutoDTOUpdateRequest>(produto);
+
+
+            _uof.ProdutoHibridoRepository.Update(produto);
+            _uof.Commit();
+
+            return Ok(_mapper.Map<ProdutoDTOUpdateResponse>(produto));
+
+        }
+
 
         [HttpPut("{id:int}")]
         public ActionResult<ProdutoDTO> PutProdutoAsync(int id, ProdutoDTO produtoDto)
