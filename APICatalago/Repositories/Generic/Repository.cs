@@ -1,4 +1,5 @@
 ﻿using APICatalago.Context;
+using APICatalago.Pagination;
 using APICatalago.Repositories.Generic.Interface;
 using System.Linq.Expressions;
 
@@ -16,7 +17,9 @@ namespace APICatalago.Repositories.Generic
 
         public IEnumerable<T> GetAll()
         {
-            return _context.Set<T>().ToList();
+            return _context
+                .Set<T>()
+                .ToList();
         }
 
         public T? Get(Expression<Func<T, bool>> predicate)

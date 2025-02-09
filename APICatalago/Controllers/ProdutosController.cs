@@ -1,12 +1,12 @@
 ﻿using APICatalago.DTOs;
 using APICatalago.Models;
+using APICatalago.Pagination;
 using APICatalago.Repositories.UnitOfWork;
 using AutoMapper;
-using Azure;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json;
 
 namespace APICatalago.Controllers
 {
@@ -26,13 +26,46 @@ namespace APICatalago.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("ProdutosPorCategoria ")]
-        public ActionResult<ProdutoDTO> GetProdPorCat([FromQuery, Required] int id)
+        [HttpGet("ProdutosPaginacao")]
+        public ActionResult<IEnumerable<ProdutoDTO>> GetProdutosPaginacao([FromQuery, Required] Parameters parameters)
         {
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOSPORCATEGORIA ===================");
             try
             {
-                var Produtos = _uof.ProdutoHibridoRepository.GetProdutosPorCategoria(id);
+                var produtos = _uof.ProdutoHibridoRepository.GetProdutos(parameters);
+
+                if (produtos is null || !produtos.Any())
+                    return NotFound("Produto(s) não encontrado(s)");
+
+                var metaData = new 
+                {
+                    produtos.totalCount,
+                    produtos.pageSize,
+                    produtos.currentPage,
+                    produtos.totalPages,
+                    produtos.hasPrevious,
+                    produtos.hasNext
+                };
+
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metaData));
+
+                return Ok(_mapper.Map<IEnumerable<ProdutoDTO>>(produtos));
+
+            }
+            catch (Exception)
+            {
+                _logger.LogInformation($"Produtos não encontrados");
+                return NotFound($"Produtos não encontrados");
+            }
+        }
+
+        [HttpGet("ProdutosPorCategoria")]
+        public ActionResult<ProdutoDTO> GetProdPorCat([FromQuery, Required] int id, [FromQuery] Parameters parameters)
+        {
+            _logger.LogInformation("=================== VERBO: GET - /PRODUTOSPORCATEGORIA ===================");
+            try
+            {
+                var Produtos = _uof.ProdutoHibridoRepository.GetProdutosPorCategoria(id, parameters);
             
                 if (Produtos is null || !Produtos.Any())
                     return NotFound();  
@@ -40,7 +73,6 @@ namespace APICatalago.Controllers
                 // var "Aqui ele virou o que deve ser" = _mapper.Map<Oque deve ser>(o que ainda é);
                 // var Destino = _mapper.Map<Destino>(Origem);
                 return Ok(_mapper.Map<IEnumerable<ProdutoDTO>>(Produtos));
-
 
             }
             catch (Exception)
@@ -118,8 +150,7 @@ namespace APICatalago.Controllers
         }
 
         [HttpPatch("{id}/UpdatePartial")]
-        public ActionResult<ProdutoDTOUpdateResponse> Patch(int id,
-            JsonPatchDocument<ProdutoDTOUpdateRequest> patchProdutoDTO)
+        public ActionResult<ProdutoDTOUpdateResponse> Patch(int id, JsonPatchDocument<ProdutoDTOUpdateRequest> patchProdutoDTO)
         {
             if (patchProdutoDTO is null || id <= 0)
                 return BadRequest();
@@ -144,7 +175,6 @@ namespace APICatalago.Controllers
             _uof.Commit();
 
             return Ok(_mapper.Map<ProdutoDTOUpdateResponse>(produto));
-
         }
 
 

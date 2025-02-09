@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APICatalago", "APICatalago\APICatalago.csproj", "{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APICatalago.Test", "APICatalago.Test\APICatalago.Test.csproj", "{19AFB63E-AF25-4E68-BFF4-60E1B374A6CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19AFB63E-AF25-4E68-BFF4-60E1B374A6CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19AFB63E-AF25-4E68-BFF4-60E1B374A6CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19AFB63E-AF25-4E68-BFF4-60E1B374A6CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19AFB63E-AF25-4E68-BFF4-60E1B374A6CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
