@@ -5,6 +5,69 @@
     "version": "1.0"
   },
   "paths": {
+    "/Categorias/filtro/nome/paginacao": {
+      "get": {
+        "tags": [
+          "Categorias"
+        ],
+        "parameters": [
+          {
+            "name": "Nome",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProdutoDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProdutoDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProdutoDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/Categorias/CategoriaComProduto": {
       "get": {
         "tags": [
@@ -273,7 +336,78 @@
         }
       }
     },
-    "/api/Produtos/ProdutosPaginacao": {
+    "/api/produtos/filtro/preco/paginacao": {
+      "get": {
+        "tags": [
+          "Produtos"
+        ],
+        "parameters": [
+          {
+            "name": "Preco",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "PrecoCriterio",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProdutoDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProdutoDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProdutoDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/produtos/Paginacao": {
       "get": {
         "tags": [
           "Produtos"
@@ -329,7 +463,7 @@
         }
       }
     },
-    "/api/Produtos/ProdutosPorCategoria": {
+    "/api/produtos/PorCategoria": {
       "get": {
         "tags": [
           "Produtos"
@@ -385,7 +519,7 @@
         }
       }
     },
-    "/api/Produtos": {
+    "/api/produtos": {
       "get": {
         "tags": [
           "Produtos"
@@ -474,7 +608,7 @@
         }
       }
     },
-    "/api/Produtos/produto": {
+    "/api/produtos/id": {
       "get": {
         "tags": [
           "Produtos"
@@ -515,7 +649,7 @@
         }
       }
     },
-    "/api/Produtos/{id}/UpdatePartial": {
+    "/api/produtos/{id}/UpdatePartial": {
       "patch": {
         "tags": [
           "Produtos"
@@ -591,7 +725,7 @@
         }
       }
     },
-    "/api/Produtos/{id}": {
+    "/api/produtos/{id}": {
       "put": {
         "tags": [
           "Produtos"

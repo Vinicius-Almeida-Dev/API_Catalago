@@ -1,8 +1,11 @@
 ﻿using APICatalago.DTOs;
 using APICatalago.DTOs.Mappings;
 using APICatalago.Models;
+using APICatalago.Pagination;
 using APICatalago.Repositories.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace APICatalago.Controllers
 {
@@ -20,6 +23,43 @@ namespace APICatalago.Controllers
             _logger = logger;
         }
 
+        private ActionResult<IEnumerable<ProdutoDTO>> ObterCategorias(PagedList<Categoria> categorias)
+        {
+            var metaData = new
+            {
+                categorias.totalCount,
+                categorias.pageSize,
+                categorias.currentPage,   
+                categorias.totalPages,
+                categorias.hasPrevious,
+                categorias.hasNext
+            };
+
+            Response.Headers["X-Pagination"] = JsonConvert.SerializeObject(metaData);
+
+            return Ok(categorias.ToCategoriaComProdutoDTOList());
+        }
+
+        [HttpGet("filtro/nome/paginacao")]
+        public ActionResult<IEnumerable<ProdutoDTO>> GetProdutosPrecoPaginacao([FromQuery, Required] ParametersCategoriasFiltroNome parameters)
+        {
+            _logger.LogInformation("=================== VERBO: GET - /PRODUTOSPORCATEGORIA ===================");
+            try
+            {
+                var categorias = _uof.CategoriaHibridoRepository.GetCategoriasFiltroNome(parameters);
+
+                if (categorias is null || !categorias.Any())
+                    return NotFound("Categoria(s) não encontrada(s)");
+
+                return ObterCategorias(categorias);
+
+            }
+            catch (Exception)
+            {
+                _logger.LogInformation($"Produtos não encontrados");
+                return NotFound($"Produtos não encontrados");
+            }
+        }
         [HttpGet("CategoriaComProduto")]
         public ActionResult<IEnumerable<CategoriaComProdutoDTO>> GetCatComProd()
         {

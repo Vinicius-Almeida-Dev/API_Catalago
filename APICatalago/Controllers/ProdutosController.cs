@@ -12,7 +12,7 @@ namespace APICatalago.Controllers
 {
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/produtos")]
     public class ProdutosController : ControllerBase
     {
         private readonly IUnitOfWork _uof;
@@ -25,8 +25,45 @@ namespace APICatalago.Controllers
             _logger = logger;
             _mapper = mapper;
         }
+        private ActionResult<IEnumerable<ProdutoDTO>> ObterProdutos(PagedList<Produto> produtos)
+        {
+            var metaData = new
+            {
+                produtos.totalCount,
+                produtos.pageSize,
+                produtos.currentPage,
+                produtos.totalPages,
+                produtos.hasPrevious,
+                produtos.hasNext
+            };
 
-        [HttpGet("ProdutosPaginacao")]
+            Response.Headers["X-Pagination"] = JsonConvert.SerializeObject(metaData);
+
+            return Ok(_mapper.Map<IEnumerable<ProdutoDTO>>(produtos));
+        }
+
+        [HttpGet("filtro/preco/paginacao")]
+        public ActionResult<IEnumerable<ProdutoDTO>> GetProdutosPrecoPaginacao([FromQuery, Required] ParametersProdutosFiltoPreco parameters)
+        {
+            _logger.LogInformation("=================== VERBO: GET - /PRODUTOSPORCATEGORIA ===================");
+            try
+            {
+                var produtos = _uof.ProdutoHibridoRepository.GetProdutosFiltroPreco(parameters);
+
+                if (produtos is null || !produtos.Any())
+                    return NotFound("Produto(s) não encontrado(s)");
+
+                return ObterProdutos(produtos);
+
+            }
+            catch (Exception)
+            {
+                _logger.LogInformation($"Produtos não encontrados");
+                return NotFound($"Produtos não encontrados");
+            }
+        }       
+
+        [HttpGet("Paginacao")]
         public ActionResult<IEnumerable<ProdutoDTO>> GetProdutosPaginacao([FromQuery, Required] Parameters parameters)
         {
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOSPORCATEGORIA ===================");
@@ -37,19 +74,7 @@ namespace APICatalago.Controllers
                 if (produtos is null || !produtos.Any())
                     return NotFound("Produto(s) não encontrado(s)");
 
-                var metaData = new 
-                {
-                    produtos.totalCount,
-                    produtos.pageSize,
-                    produtos.currentPage,
-                    produtos.totalPages,
-                    produtos.hasPrevious,
-                    produtos.hasNext
-                };
-
-                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metaData));
-
-                return Ok(_mapper.Map<IEnumerable<ProdutoDTO>>(produtos));
+                return ObterProdutos(produtos);
 
             }
             catch (Exception)
@@ -59,7 +84,7 @@ namespace APICatalago.Controllers
             }
         }
 
-        [HttpGet("ProdutosPorCategoria")]
+        [HttpGet("PorCategoria")]
         public ActionResult<ProdutoDTO> GetProdPorCat([FromQuery, Required] int id, [FromQuery] Parameters parameters)
         {
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOSPORCATEGORIA ===================");
@@ -104,7 +129,7 @@ namespace APICatalago.Controllers
 
         }
 
-        [HttpGet("produto", Name = "ObterProduto")]
+        [HttpGet("id", Name = "ObterProduto")]
         public ActionResult<ProdutoDTO> GetProdutoIdAsync([FromQuery, Required] int id)
         {
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOS/TestandoFromquery ===================");
