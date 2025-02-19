@@ -12,26 +12,29 @@ namespace APICatalago.Repositories.hybrid
         {
         }
 
-        public IEnumerable<Produto> GetProdutosPorCategoria(int id, Parameters parameters)
+        public async Task<IEnumerable<Produto>> GetProdutosPorCategoriaAsync(int id, Parameters parameters)
         {
-            return GetAll()
+            var produtos = await GetAllAsync();
+              
+            var produtosPaginados = produtos
                 .Skip((parameters.pageNumber - 1) * parameters.pageSize)
                 .Take(parameters.pageSize)
                 .Where(p => p.CategoriaId == id);
+
+            return produtosPaginados;
         }
 
-        public PagedList<Produto> GetProdutos(Parameters parameters)
+        public async Task<PagedList<Produto>> GetProdutosAsync(Parameters parameters)
         {
-           var produtos = GetAll()
-            .OrderBy(p => p.CategoriaId)
-            .AsQueryable();
+            var produtos = await GetAllAsync();
+            var produtosOrdenados = produtos.OrderBy(p => p.CategoriaId).AsQueryable();
 
-            return PagedList<Produto>.ToPagedList(produtos, parameters.pageNumber, parameters.pageSize);
+            return PagedList<Produto>.ToPagedList(produtosOrdenados, parameters.pageNumber, parameters.pageSize);
         }
 
-        public PagedList<Produto> GetProdutosFiltroPreco(ParametersProdutosFiltoPreco produtosFiltroParams)
+        public async Task<PagedList<Produto>> GetProdutosFiltroPrecoAsync(ParametersProdutosFiltoPreco produtosFiltroParams)
         {
-            var produtos = GetAll().AsQueryable();
+            var produtos = await GetAllAsync();
             if (produtosFiltroParams.Preco.HasValue && !string.IsNullOrEmpty(produtosFiltroParams.PrecoCriterio))
             {
                 if (produtosFiltroParams.PrecoCriterio.Equals("maior", StringComparison.OrdinalIgnoreCase))
@@ -47,7 +50,7 @@ namespace APICatalago.Repositories.hybrid
                     produtos = produtos.Where(p => p.Preco == produtosFiltroParams.Preco.Value).OrderBy(p => p.Preco);
                 }
             }
-            var produtosFiltrados = PagedList<Produto>.ToPagedList(produtos, produtosFiltroParams.pageNumber,
+            var produtosFiltrados = PagedList<Produto>.ToPagedList(produtos.AsQueryable(), produtosFiltroParams.pageNumber,
                                                                                                   produtosFiltroParams.pageSize);
             return produtosFiltrados;
         }

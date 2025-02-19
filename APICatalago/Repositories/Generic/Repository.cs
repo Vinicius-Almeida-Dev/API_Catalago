@@ -1,6 +1,7 @@
 ﻿using APICatalago.Context;
 using APICatalago.Pagination;
 using APICatalago.Repositories.Generic.Interface;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace APICatalago.Repositories.Generic
@@ -15,26 +16,26 @@ namespace APICatalago.Repositories.Generic
         }
 
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return _context
-                .Set<T>()
-                .ToList();
+            return await _context
+                .Set<T>().AsNoTracking().ToListAsync();
+                
         }
 
-        public T? Get(Expression<Func<T, bool>> predicate)
+        public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate)
         {
-            return _context.Set<T>().FirstOrDefault(predicate);
+            return await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(predicate);
         }
-        
-        public T Create(T entity)
+
+        public T? Create(T entity)
         {
-            _context.Set<T>().Add(entity);
+             _context.Set<T>().Add(entity);
            
             return entity;  
         }
 
-        public T Update(T entity)
+        public T? Update(T entity)
         {
             _context.Set<T>().Update(entity);
           

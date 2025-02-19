@@ -6,11 +6,12 @@ using APICatalago.Repositories.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using X.PagedList;
 
 namespace APICatalago.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("categorias")]
 
     public class CategoriasController : ControllerBase
     {
@@ -23,30 +24,13 @@ namespace APICatalago.Controllers
             _logger = logger;
         }
 
-        private ActionResult<IEnumerable<ProdutoDTO>> ObterCategorias(PagedList<Categoria> categorias)
-        {
-            var metaData = new
-            {
-                categorias.totalCount,
-                categorias.pageSize,
-                categorias.currentPage,   
-                categorias.totalPages,
-                categorias.hasPrevious,
-                categorias.hasNext
-            };
-
-            Response.Headers["X-Pagination"] = JsonConvert.SerializeObject(metaData);
-
-            return Ok(categorias.ToCategoriaComProdutoDTOList());
-        }
-
         [HttpGet("filtro/nome/paginacao")]
-        public ActionResult<IEnumerable<ProdutoDTO>> GetProdutosPrecoPaginacao([FromQuery, Required] ParametersCategoriasFiltroNome parameters)
+        public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetProdutosPrecoPaginacaoAsync([FromQuery, Required] ParametersCategoriasFiltroNome parameters)
         {
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOSPORCATEGORIA ===================");
             try
             {
-                var categorias = _uof.CategoriaHibridoRepository.GetCategoriasFiltroNome(parameters);
+                var categorias = await _uof.CategoriaHibridoRepository.GetCategoriasFiltroNomeAsync(parameters);
 
                 if (categorias is null || !categorias.Any())
                     return NotFound("Categoria(s) não encontrada(s)");
@@ -60,13 +44,13 @@ namespace APICatalago.Controllers
                 return NotFound($"Produtos não encontrados");
             }
         }
-        [HttpGet("CategoriaComProduto")]
-        public ActionResult<IEnumerable<CategoriaComProdutoDTO>> GetCatComProd()
+        [HttpGet("com/produto")]
+        public async Task<ActionResult<IEnumerable<CategoriaComProdutoDTO>>> GetCatComProdAsync()
         {
             _logger.LogInformation("=================== VERBO: GET - /Categorias Com Produtos ===================");
             try
             {
-                var categorias = _uof.CategoriaHibridoRepository.GetCategoriasComProdutos();
+                var categorias = await _uof.CategoriaHibridoRepository.GetCategoriasComProdutosAsync();
 
                 //var categoriasDto = CategoriaDTOMappingExtensions.ToCategoriaDTOList(categorias);
 
@@ -82,12 +66,12 @@ namespace APICatalago.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<CategoriaDTO>> GetCategoriasAsync()
+        public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetCategoriasAsync()
         {
             _logger.LogInformation("=================== VERBO: GET - /Categorias ===================");
             try
-            {                
-                var categorias = _uof.CategoriaHibridoRepository.GetAll();
+            {
+                var categorias = await _uof.CategoriaHibridoRepository.GetAllAsync();
 
 
                 return Ok(categorias.ToCategoriaDTOList());
@@ -97,14 +81,14 @@ namespace APICatalago.Controllers
                 _logger.LogInformation($"Categorias não encontradas");
                 return NotFound($"Categorias não encontradas");
             }
-            
+
         }
 
         [HttpGet("{id:int}", Name = "ObterCategoria")]
-        public ActionResult<CategoriaDTO> GetCategoriaIdAsync(int id)
+        public async Task<ActionResult<CategoriaDTO>> GetCategoriaIdAsync(int id)
         {
             _logger.LogInformation("=================== VERBO: GET - /Categorias/Id ===================");
-            var categoria = _uof.CategoriaHibridoRepository.Get(c => c.CategoriaId == id);
+            var categoria = await  _uof.CategoriaHibridoRepository.GetAsync(c => c.CategoriaId == id);
 
             if (categoria is null)
             {
@@ -116,7 +100,7 @@ namespace APICatalago.Controllers
         }
 
         [HttpPost]
-        public ActionResult<CategoriaDTO> PostCategoriaAsync(Categoria categoria)
+        public async Task<ActionResult<CategoriaDTO>> PostCategoriaAsync(Categoria categoria)
         {
             _logger.LogInformation("=================== VERBO: POST - /Categorias ===================");
 
@@ -128,7 +112,7 @@ namespace APICatalago.Controllers
             }
 
             var categoriaCreate = _uof.CategoriaHibridoRepository.Create(categoria);
-            _uof.Commit();
+            await _uof.CommitAsync();
 
             categoriaCreate.ToCategoriaDTO();
 
@@ -137,7 +121,7 @@ namespace APICatalago.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public ActionResult<CategoriaDTO> PutCategoriaAsync(int id, Categoria categoria)
+        public async Task<ActionResult<CategoriaDTO>> PutCategoriaAsync(int id, Categoria categoria)
         {
             _logger.LogInformation("=================== VERBO: PUT - /Categorias ===================");
 
@@ -148,16 +132,16 @@ namespace APICatalago.Controllers
             }
 
             var categariaUpdate = _uof.CategoriaHibridoRepository.Update(categoria);
-            _uof.Commit();
+            await _uof.CommitAsync();
 
             return Ok(categoria.ToCategoriaDTO());
         }
 
         [HttpDelete("{id:int}")]
-        public ActionResult<CategoriaDTO> DeleteProdutoAsync(int id)
+        public async Task<ActionResult<CategoriaDTO>> DeleteProdutoAsync(int id)
         {
             _logger.LogInformation("=================== VERBO: DELETE - /Categorias ===================");
-            var categoria = _uof.CategoriaHibridoRepository.Get(c => c.CategoriaId == id);
+            var categoria = await _uof.CategoriaHibridoRepository.GetAsync(c => c.CategoriaId == id);
 
             if (categoria is null)
             {
@@ -166,10 +150,28 @@ namespace APICatalago.Controllers
             }
 
             var categoriaDeleted = _uof.CategoriaHibridoRepository.Delete(categoria);
-            _uof.Commit();
+            await _uof.CommitAsync();
 
             return Ok(categoriaDeleted.ToCategoriaDTO());
 
+        }
+
+        // Metodos auxiliares:
+        private ActionResult<IEnumerable<ProdutoDTO>> ObterCategorias(IPagedList<Categoria> categorias)
+        {
+            var metaData = new
+            {
+                categorias.Count,
+                categorias.PageSize,
+                categorias.PageCount,
+                categorias.TotalItemCount,
+                categorias.HasNextPage,
+                categorias.HasPreviousPage
+            };
+
+            Response.Headers["X-Pagination"] = JsonConvert.SerializeObject(metaData);
+
+            return Ok(categorias.ToCategoriaComProdutoDTOList());
         }
 
     }

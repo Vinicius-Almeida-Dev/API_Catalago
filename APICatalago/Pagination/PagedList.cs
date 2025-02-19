@@ -1,6 +1,6 @@
 ﻿namespace APICatalago.Pagination
 {
-    public class PagedList<T> : List<T>
+    public class PagedList<T> : List<T> where T : class
     {
         public PagedList()
         {

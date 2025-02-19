@@ -7,8 +7,8 @@ namespace APICatalago.Repositories.hybrid.Interfaces
 {
     public interface IProdutoHibridoRepository : IRepository<Produto>
     {
-        IEnumerable<Produto> GetProdutosPorCategoria(int id, Parameters parameters);
-        PagedList<Produto> GetProdutos(Parameters parameters);
-        PagedList<Produto> GetProdutosFiltroPreco(ParametersProdutosFiltoPreco produtosFiltoPreco);
+        Task<IEnumerable<Produto>> GetProdutosPorCategoriaAsync(int id, Parameters parameters);
+        Task<PagedList<Produto>> GetProdutosAsync(Parameters parameters);
+        Task<PagedList<Produto>> GetProdutosFiltroPrecoAsync(ParametersProdutosFiltoPreco produtosFiltoPreco);
     }
 }

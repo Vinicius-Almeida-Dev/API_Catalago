@@ -24,31 +24,15 @@ namespace APICatalago.Controllers
             _uof = uof;
             _logger = logger;
             _mapper = mapper;
-        }
-        private ActionResult<IEnumerable<ProdutoDTO>> ObterProdutos(PagedList<Produto> produtos)
-        {
-            var metaData = new
-            {
-                produtos.totalCount,
-                produtos.pageSize,
-                produtos.currentPage,
-                produtos.totalPages,
-                produtos.hasPrevious,
-                produtos.hasNext
-            };
-
-            Response.Headers["X-Pagination"] = JsonConvert.SerializeObject(metaData);
-
-            return Ok(_mapper.Map<IEnumerable<ProdutoDTO>>(produtos));
-        }
+        }        
 
         [HttpGet("filtro/preco/paginacao")]
-        public ActionResult<IEnumerable<ProdutoDTO>> GetProdutosPrecoPaginacao([FromQuery, Required] ParametersProdutosFiltoPreco parameters)
+        public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetProdutosPrecoPaginacaoAsync([FromQuery, Required] ParametersProdutosFiltoPreco parameters)
         {
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOSPORCATEGORIA ===================");
             try
             {
-                var produtos = _uof.ProdutoHibridoRepository.GetProdutosFiltroPreco(parameters);
+                var produtos = await _uof.ProdutoHibridoRepository.GetProdutosFiltroPrecoAsync(parameters);
 
                 if (produtos is null || !produtos.Any())
                     return NotFound("Produto(s) não encontrado(s)");
@@ -63,13 +47,13 @@ namespace APICatalago.Controllers
             }
         }       
 
-        [HttpGet("Paginacao")]
-        public ActionResult<IEnumerable<ProdutoDTO>> GetProdutosPaginacao([FromQuery, Required] Parameters parameters)
+        [HttpGet("paginacao")]
+        public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetProdutosPaginacao([FromQuery, Required] Parameters parameters)
         {
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOSPORCATEGORIA ===================");
             try
             {
-                var produtos = _uof.ProdutoHibridoRepository.GetProdutos(parameters);
+                var produtos = await _uof.ProdutoHibridoRepository.GetProdutosAsync(parameters);
 
                 if (produtos is null || !produtos.Any())
                     return NotFound("Produto(s) não encontrado(s)");
@@ -84,13 +68,13 @@ namespace APICatalago.Controllers
             }
         }
 
-        [HttpGet("PorCategoria")]
-        public ActionResult<ProdutoDTO> GetProdPorCat([FromQuery, Required] int id, [FromQuery] Parameters parameters)
+        [HttpGet("categorias")]
+        public async Task<ActionResult<ProdutoDTO>> GetProdPorCatAsync([FromQuery, Required] int id, [FromQuery] Parameters parameters)
         {
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOSPORCATEGORIA ===================");
             try
             {
-                var Produtos = _uof.ProdutoHibridoRepository.GetProdutosPorCategoria(id, parameters);
+                var Produtos = await _uof.ProdutoHibridoRepository.GetProdutosPorCategoriaAsync(id, parameters);
             
                 if (Produtos is null || !Produtos.Any())
                     return NotFound();  
@@ -108,12 +92,12 @@ namespace APICatalago.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ProdutoDTO>> GetProdutosAsync()
+        public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetProdutosAsync()
         {
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOS ===================");
             try
             {
-                var produtos = _uof.ProdutoHibridoRepository.GetAll().OrderByDescending(p => p.ProdutoId);
+                var produtos = await _uof.ProdutoHibridoRepository.GetAllAsync();
 
                 if (produtos is null || !produtos.Any())
                     return NotFound();
@@ -130,12 +114,12 @@ namespace APICatalago.Controllers
         }
 
         [HttpGet("id", Name = "ObterProduto")]
-        public ActionResult<ProdutoDTO> GetProdutoIdAsync([FromQuery, Required] int id)
+        public async Task<ActionResult<ProdutoDTO>> GetProdutoIdAsync([FromQuery, Required] int id)
         {
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOS/TestandoFromquery ===================");
             try
             {
-                var produto = _uof.ProdutoHibridoRepository.Get(p => p.ProdutoId == id);
+                var produto = await _uof.ProdutoHibridoRepository.GetAsync(p => p.ProdutoId == id);
 
                 if(produto is null)
                     return NotFound();
@@ -151,7 +135,7 @@ namespace APICatalago.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ProdutoDTO> PostProdutoAsync(ProdutoDTO produtoDto)
+        public async Task<ActionResult<ProdutoDTO>> PostProdutoAsync(ProdutoDTO produtoDto)
         {
             _logger.LogInformation("=================== VERBO: POST - /PRODUTOS ===================");
             try
@@ -163,7 +147,7 @@ namespace APICatalago.Controllers
                 if(produtoCreate is null)
                     return NotFound();
 
-                _uof.Commit();
+               await _uof.CommitAsync();
                 return new CreatedAtRouteResult("ObterProduto", new { id = produtoCreate.ProdutoId }, _mapper.Map<ProdutoDTO>(produtoCreate));
             }
             catch (Exception e)
@@ -175,12 +159,12 @@ namespace APICatalago.Controllers
         }
 
         [HttpPatch("{id}/UpdatePartial")]
-        public ActionResult<ProdutoDTOUpdateResponse> Patch(int id, JsonPatchDocument<ProdutoDTOUpdateRequest> patchProdutoDTO)
+        public async Task<ActionResult<ProdutoDTOUpdateResponse>> PatchAsync(int id, JsonPatchDocument<ProdutoDTOUpdateRequest> patchProdutoDTO)
         {
             if (patchProdutoDTO is null || id <= 0)
                 return BadRequest();
 
-            var produto = _uof.ProdutoHibridoRepository.Get(p => p.ProdutoId == id);
+            var produto = await _uof.ProdutoHibridoRepository.GetAsync(p => p.ProdutoId == id);
             
             if (produto is null) 
                 return NotFound();
@@ -197,14 +181,14 @@ namespace APICatalago.Controllers
 
 
             _uof.ProdutoHibridoRepository.Update(produto);
-            _uof.Commit();
+            await _uof.CommitAsync();
 
             return Ok(_mapper.Map<ProdutoDTOUpdateResponse>(produto));
         }
 
 
         [HttpPut("{id:int}")]
-        public ActionResult<ProdutoDTO> PutProdutoAsync(int id, ProdutoDTO produtoDto)
+        public async Task<ActionResult<ProdutoDTO>> PutProdutoAsync(int id, ProdutoDTO produtoDto)
         {
             _logger.LogInformation("=================== VERBO: PUT - /PRODUTOS ===================");
             try
@@ -215,7 +199,7 @@ namespace APICatalago.Controllers
                 if (produtoUpdate is null)
                     return NotFound();
 
-                _uof.Commit();
+                await _uof.CommitAsync();
 
                 return Ok(_mapper.Map<ProdutoDTO>(produtoUpdate));
             }
@@ -227,12 +211,12 @@ namespace APICatalago.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public ActionResult DeleteProdutoAsync(int id)
+        public async Task<ActionResult> DeleteProdutoAsync(int id)
         {
             _logger.LogInformation("=================== VERBO: DELETE - /PRODUTOS ===================");
             try
             {
-                var produto = _uof.ProdutoHibridoRepository.Get(p => p.ProdutoId == id);
+                var produto = await _uof.ProdutoHibridoRepository.GetAsync(p => p.ProdutoId == id);
 
 
                 var produtoDeleteado = _uof.ProdutoHibridoRepository.Delete(produto);
@@ -240,7 +224,7 @@ namespace APICatalago.Controllers
                 if (produtoDeleteado is null)
                     return NotFound();
 
-                _uof.Commit();
+               await _uof.CommitAsync();
 
                 return Ok(_mapper.Map<ProdutoDTO>(produtoDeleteado));
             }
@@ -250,6 +234,24 @@ namespace APICatalago.Controllers
                 return NotFound($"Produto com id {id} não encontrado");
             }
 
+        }
+
+        // Métodos auxiliares
+        private ActionResult<IEnumerable<ProdutoDTO>> ObterProdutos(PagedList<Produto> produtos)
+        {
+            var metaData = new
+            {
+                produtos.totalCount,
+                produtos.pageSize,
+                produtos.currentPage,
+                produtos.totalPages,
+                produtos.hasPrevious,
+                produtos.hasNext
+            };
+
+            Response.Headers["X-Pagination"] = JsonConvert.SerializeObject(metaData);
+
+            return Ok(_mapper.Map<IEnumerable<ProdutoDTO>>(produtos));
         }
     }
 }

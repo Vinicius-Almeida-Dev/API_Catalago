@@ -4,8 +4,8 @@ namespace APICatalago.Repositories.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        ICategoriaHibridoRepository CategoriaHibridoRepository { get; }
-        IProdutoHibridoRepository ProdutoHibridoRepository { get; }
-        void Commit();
+        ICategoriaHibridoRepository? CategoriaHibridoRepository { get; }
+        IProdutoHibridoRepository? ProdutoHibridoRepository { get; }
+        Task CommitAsync();
     }
 }

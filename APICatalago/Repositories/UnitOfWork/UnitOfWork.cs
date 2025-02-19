@@ -15,7 +15,7 @@ namespace APICatalago.Repositories.UnitOfWork
             _context = context;
         }
 
-        public IProdutoHibridoRepository ProdutoHibridoRepository
+        public IProdutoHibridoRepository? ProdutoHibridoRepository
         {
             get
             {
@@ -23,16 +23,16 @@ namespace APICatalago.Repositories.UnitOfWork
             }
         }
 
-        public ICategoriaHibridoRepository CategoriaHibridoRepository
+        public ICategoriaHibridoRepository? CategoriaHibridoRepository
         {
             get
             {
                 return _cRepository = _cRepository ?? new CategoriaHibridoRepository(_context);
             }
         }
-        public void Commit()
+        public async Task CommitAsync()
         {
-            _context.SaveChanges();
+          await _context.SaveChangesAsync();
         }
         public void Dispose()
         {

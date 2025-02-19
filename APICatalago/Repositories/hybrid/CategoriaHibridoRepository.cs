@@ -4,6 +4,7 @@ using APICatalago.Pagination;
 using APICatalago.Repositories.Generic;
 using APICatalago.Repositories.hybrid.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace APICatalago.Repositories.hybrid
 {
@@ -13,21 +14,24 @@ namespace APICatalago.Repositories.hybrid
         {
         }
 
-        public IEnumerable<Categoria> GetCategoriasComProdutos()
+        public async Task<IEnumerable<Categoria>> GetCategoriasComProdutosAsync()
         {
-            return _context.Categorias.Include(c => c.Produtos).ToList();
+            return await _context.Categorias.Include(c => c.Produtos).ToListAsync();
         }
-        public PagedList<Categoria> GetCategoriasFiltroNome(ParametersCategoriasFiltroNome categoriasParams)
+
+        public async Task<IPagedList<Categoria>> GetCategoriasFiltroNomeAsync(ParametersCategoriasFiltroNome categoriasParams)
         {
-            var categorias = GetAll().AsQueryable();
+            var categorias = await GetAllAsync();
 
             if (!string.IsNullOrEmpty(categoriasParams.Nome)) 
             {
                 categorias = categorias.Where(c => c.Nome.Contains(categoriasParams.Nome));
             }
 
-            var categoriasOrdenadas = PagedList<Categoria>.ToPagedList(categorias,
-                categoriasParams.pageNumber, categoriasParams.pageSize);
+            //var categoriasOrdenadas = PagedList<Categoria>.ToPagedList(categorias.AsQueryable(),
+            //    categoriasParams.pageNumber, categoriasParams.pageSize);
+
+            var categoriasOrdenadas = await categorias.ToPagedListAsync(categoriasParams.pageNumber, categoriasParams.pageSize);
 
             return categoriasOrdenadas;
         }

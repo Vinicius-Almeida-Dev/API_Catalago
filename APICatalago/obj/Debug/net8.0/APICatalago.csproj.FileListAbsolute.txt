@@ -574,3 +574,6 @@ C:\0-Meus_Projetos\APICatalago\APICatalago\bin\Debug\net8.0\AutoMapper.Extension
 C:\0-Meus_Projetos\APICatalago\APICatalago\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\0-Meus_Projetos\APICatalago\APICatalago\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\0-Meus_Projetos\APICatalago\APICatalago\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\0-Meus_Projetos\APICatalago\APICatalago\bin\Debug\net8.0\JetBrains.Annotations.dll
+C:\0-Meus_Projetos\APICatalago\APICatalago\bin\Debug\net8.0\X.PagedList.dll
+C:\0-Meus_Projetos\APICatalago\APICatalago\bin\Debug\net8.0\X.PagedList.Mvc.Core.dll

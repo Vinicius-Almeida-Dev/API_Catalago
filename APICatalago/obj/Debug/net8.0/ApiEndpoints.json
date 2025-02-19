@@ -94,7 +94,7 @@
   },
   {
     "ContainingType": "APICatalago.Controllers.ProdutosController",
-    "Method": "Patch",
+    "Method": "PatchAsync",
     "RelativePath": "api/produtos/{id}/UpdatePartial",
     "HttpMethod": "PATCH",
     "IsController": true,
@@ -125,7 +125,43 @@
   },
   {
     "ContainingType": "APICatalago.Controllers.ProdutosController",
-    "Method": "GetProdutosPrecoPaginacao",
+    "Method": "GetProdPorCatAsync",
+    "RelativePath": "api/produtos/categorias",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "APICatalago.DTOs.ProdutoDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "APICatalago.Controllers.ProdutosController",
+    "Method": "GetProdutosPrecoPaginacaoAsync",
     "RelativePath": "api/produtos/filtro/preco/paginacao",
     "HttpMethod": "GET",
     "IsController": true,
@@ -194,7 +230,7 @@
   {
     "ContainingType": "APICatalago.Controllers.ProdutosController",
     "Method": "GetProdutosPaginacao",
-    "RelativePath": "api/produtos/Paginacao",
+    "RelativePath": "api/produtos/paginacao",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -213,42 +249,6 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[APICatalago.DTOs.ProdutoDTO, APICatalago, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "APICatalago.Controllers.ProdutosController",
-    "Method": "GetProdPorCat",
-    "RelativePath": "api/produtos/PorCategoria",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "pageNumber",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "pageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "APICatalago.DTOs.ProdutoDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -487,7 +487,7 @@
   {
     "ContainingType": "APICatalago.Controllers.CategoriasController",
     "Method": "GetCategoriasAsync",
-    "RelativePath": "Categorias",
+    "RelativePath": "categorias",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -507,7 +507,7 @@
   {
     "ContainingType": "APICatalago.Controllers.CategoriasController",
     "Method": "PostCategoriaAsync",
-    "RelativePath": "Categorias",
+    "RelativePath": "categorias",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -533,7 +533,7 @@
   {
     "ContainingType": "APICatalago.Controllers.CategoriasController",
     "Method": "GetCategoriaIdAsync",
-    "RelativePath": "Categorias/{id}",
+    "RelativePath": "categorias/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -560,7 +560,7 @@
   {
     "ContainingType": "APICatalago.Controllers.CategoriasController",
     "Method": "PutCategoriaAsync",
-    "RelativePath": "Categorias/{id}",
+    "RelativePath": "categorias/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -591,7 +591,7 @@
   {
     "ContainingType": "APICatalago.Controllers.CategoriasController",
     "Method": "DeleteProdutoAsync",
-    "RelativePath": "Categorias/{id}",
+    "RelativePath": "categorias/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -616,8 +616,8 @@
   },
   {
     "ContainingType": "APICatalago.Controllers.CategoriasController",
-    "Method": "GetCatComProd",
-    "RelativePath": "Categorias/CategoriaComProduto",
+    "Method": "GetCatComProdAsync",
+    "RelativePath": "categorias/com/produto",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -636,8 +636,8 @@
   },
   {
     "ContainingType": "APICatalago.Controllers.CategoriasController",
-    "Method": "GetProdutosPrecoPaginacao",
-    "RelativePath": "Categorias/filtro/nome/paginacao",
+    "Method": "GetProdutosPrecoPaginacaoAsync",
+    "RelativePath": "categorias/filtro/nome/paginacao",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
