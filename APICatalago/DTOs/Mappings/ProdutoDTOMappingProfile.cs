@@ -1,4 +1,6 @@
-﻿using APICatalago.Models;
+﻿using APICatalago.DTOs.CategoriasDTOs;
+using APICatalago.DTOs.ProdutosDTOs;
+using APICatalago.Models;
 using AutoMapper;
 
 namespace APICatalago.DTOs.Mappings
@@ -11,7 +13,7 @@ namespace APICatalago.DTOs.Mappings
             CreateMap<Produto,ProdutoDTOUpdateRequest>().ReverseMap();
             CreateMap<Produto, ProdutoDTOUpdateResponse>().ReverseMap();    
             CreateMap<Categoria, CategoriaDTO>().ReverseMap();
-            
+            CreateMap<Produto, ProdutoCreateDTO>().ReverseMap();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using APICatalago.Models;
+﻿using APICatalago.DTOs.CategoriasDTOs;
+using APICatalago.Models;
 
 namespace APICatalago.DTOs.Mappings
 {
@@ -17,7 +18,7 @@ namespace APICatalago.DTOs.Mappings
             };
         }
 
-        public static Categoria? ToCategoria(CategoriaDTO categoriaDTO)
+        public static Categoria? ToCategoria(this CategoriaDTO categoriaDTO)
         {
             if (categoriaDTO is null)
                 return null;
@@ -25,6 +26,18 @@ namespace APICatalago.DTOs.Mappings
             return new Categoria()
             {
                 CategoriaId = categoriaDTO.CategoriaId,
+                Nome = categoriaDTO.Nome,
+                ImagemUrl = categoriaDTO.ImagemUrl
+            };
+        }
+
+        public static Categoria? ToCategoriaCreate(this CategoriaCreateDTO categoriaDTO)
+        {
+            if (categoriaDTO is null)
+                return null;
+
+            return new Categoria()
+            {
                 Nome = categoriaDTO.Nome,
                 ImagemUrl = categoriaDTO.ImagemUrl
             };
@@ -58,7 +71,7 @@ namespace APICatalago.DTOs.Mappings
             }).ToList();
         }
 
-          public static CategoriaDeleteDTO ToCategoriaDeleteDTO(Categoria categoria)
+          public static CategoriaDeleteDTO ToCategoriaDeleteDTO(this Categoria categoria)
         {
             if(categoria is null)
                 return new CategoriaDeleteDTO();

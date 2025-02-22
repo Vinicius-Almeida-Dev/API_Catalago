@@ -1,6 +1,6 @@
 ﻿namespace APICatalago.Pagination
 {
-    public abstract class Parameters
+    public  class Parameters
     {
         const int maxPageSize = 50;
         public int pageNumber { get; set; } = 1;

@@ -2,13 +2,14 @@
 using APICatalago.Pagination;
 using APICatalago.Repositories.Generic.Interface;
 using System.Linq.Expressions;
+using X.PagedList;
 
 namespace APICatalago.Repositories.hybrid.Interfaces
 {
     public interface IProdutoHibridoRepository : IRepository<Produto>
     {
-        Task<IEnumerable<Produto>> GetProdutosPorCategoriaAsync(int id, Parameters parameters);
-        Task<PagedList<Produto>> GetProdutosAsync(Parameters parameters);
-        Task<PagedList<Produto>> GetProdutosFiltroPrecoAsync(ParametersProdutosFiltoPreco produtosFiltoPreco);
+        Task<IPagedList<Produto>> GetProdutosPorCategoriaAsync(int id, Parameters parameters);
+        Task<IPagedList<Produto>> GetProdutosAsync(Parameters parameters);
+        Task<IPagedList<Produto>> GetProdutosFiltroPrecoAsync(ParametersProdutosFiltoPreco produtosFiltoPreco);
     }
 }

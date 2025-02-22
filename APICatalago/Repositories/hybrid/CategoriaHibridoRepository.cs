@@ -25,11 +25,8 @@ namespace APICatalago.Repositories.hybrid
 
             if (!string.IsNullOrEmpty(categoriasParams.Nome)) 
             {
-                categorias = categorias.Where(c => c.Nome.Contains(categoriasParams.Nome));
+                categorias = categorias.Where(c => c.Nome.IndexOf(categoriasParams.Nome, StringComparison.OrdinalIgnoreCase) >= 0)                ;
             }
-
-            //var categoriasOrdenadas = PagedList<Categoria>.ToPagedList(categorias.AsQueryable(),
-            //    categoriasParams.pageNumber, categoriasParams.pageSize);
 
             var categoriasOrdenadas = await categorias.ToPagedListAsync(categoriasParams.pageNumber, categoriasParams.pageSize);
 

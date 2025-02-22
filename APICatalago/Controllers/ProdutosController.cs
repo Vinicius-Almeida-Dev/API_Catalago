@@ -1,4 +1,4 @@
-﻿using APICatalago.DTOs;
+﻿using APICatalago.DTOs.ProdutosDTOs;
 using APICatalago.Models;
 using APICatalago.Pagination;
 using APICatalago.Repositories.UnitOfWork;
@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using X.PagedList;
 
 namespace APICatalago.Controllers
 {
@@ -48,7 +49,7 @@ namespace APICatalago.Controllers
         }       
 
         [HttpGet("paginacao")]
-        public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetProdutosPaginacao([FromQuery, Required] Parameters parameters)
+        public async Task<ActionResult<IEnumerable<ProdutoDTO>?>> GetProdutosPaginacao([FromQuery, Required] Parameters parameters)
         {
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOSPORCATEGORIA ===================");
             try
@@ -68,7 +69,7 @@ namespace APICatalago.Controllers
             }
         }
 
-        [HttpGet("categorias")]
+        [HttpGet("por/categoria")]
         public async Task<ActionResult<ProdutoDTO>> GetProdPorCatAsync([FromQuery, Required] int id, [FromQuery] Parameters parameters)
         {
             _logger.LogInformation("=================== VERBO: GET - /PRODUTOSPORCATEGORIA ===================");
@@ -135,7 +136,7 @@ namespace APICatalago.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProdutoDTO>> PostProdutoAsync(ProdutoDTO produtoDto)
+        public async Task<ActionResult<ProdutoDTO>> PostProdutoAsync(ProdutoCreateDTO produtoDto)
         {
             _logger.LogInformation("=================== VERBO: POST - /PRODUTOS ===================");
             try
@@ -237,16 +238,16 @@ namespace APICatalago.Controllers
         }
 
         // Métodos auxiliares
-        private ActionResult<IEnumerable<ProdutoDTO>> ObterProdutos(PagedList<Produto> produtos)
+        private ActionResult<IEnumerable<ProdutoDTO>> ObterProdutos(IPagedList<Produto> produtos)
         {
             var metaData = new
             {
-                produtos.totalCount,
-                produtos.pageSize,
-                produtos.currentPage,
-                produtos.totalPages,
-                produtos.hasPrevious,
-                produtos.hasNext
+                produtos.Count,
+                produtos.PageSize,
+                produtos.PageCount,
+                produtos.TotalItemCount,
+                produtos.HasNextPage,
+                produtos.HasPreviousPage
             };
 
             Response.Headers["X-Pagination"] = JsonConvert.SerializeObject(metaData);

@@ -3,6 +3,7 @@ using APICatalago.Models;
 using APICatalago.Pagination;
 using APICatalago.Repositories.Generic;
 using APICatalago.Repositories.hybrid.Interfaces;
+using X.PagedList;
 
 namespace APICatalago.Repositories.hybrid
 {
@@ -12,27 +13,24 @@ namespace APICatalago.Repositories.hybrid
         {
         }
 
-        public async Task<IEnumerable<Produto>> GetProdutosPorCategoriaAsync(int id, Parameters parameters)
+        public async Task<IPagedList<Produto>> GetProdutosPorCategoriaAsync(int id, Parameters parameters)
         {
             var produtos = await GetAllAsync();
               
-            var produtosPaginados = produtos
-                .Skip((parameters.pageNumber - 1) * parameters.pageSize)
-                .Take(parameters.pageSize)
-                .Where(p => p.CategoriaId == id);
+            var produtosPaginados = produtos.AsQueryable().Where(p => p.CategoriaId == id).ToPagedListAsync( parameters.pageNumber, parameters.pageSize);
 
-            return produtosPaginados;
+            return await produtosPaginados;
         }
 
-        public async Task<PagedList<Produto>> GetProdutosAsync(Parameters parameters)
+        public async Task<IPagedList<Produto>> GetProdutosAsync(Parameters parameters)
         {
             var produtos = await GetAllAsync();
             var produtosOrdenados = produtos.OrderBy(p => p.CategoriaId).AsQueryable();
 
-            return PagedList<Produto>.ToPagedList(produtosOrdenados, parameters.pageNumber, parameters.pageSize);
+            return await produtosOrdenados.ToPagedListAsync(parameters.pageNumber, parameters.pageSize);
         }
 
-        public async Task<PagedList<Produto>> GetProdutosFiltroPrecoAsync(ParametersProdutosFiltoPreco produtosFiltroParams)
+        public async Task<IPagedList<Produto>> GetProdutosFiltroPrecoAsync(ParametersProdutosFiltoPreco produtosFiltroParams)
         {
             var produtos = await GetAllAsync();
             if (produtosFiltroParams.Preco.HasValue && !string.IsNullOrEmpty(produtosFiltroParams.PrecoCriterio))
@@ -50,8 +48,7 @@ namespace APICatalago.Repositories.hybrid
                     produtos = produtos.Where(p => p.Preco == produtosFiltroParams.Preco.Value).OrderBy(p => p.Preco);
                 }
             }
-            var produtosFiltrados = PagedList<Produto>.ToPagedList(produtos.AsQueryable(), produtosFiltroParams.pageNumber,
-                                                                                                  produtosFiltroParams.pageSize);
+            var produtosFiltrados = await produtos.AsQueryable().ToPagedListAsync( produtosFiltroParams.pageNumber, produtosFiltroParams.pageSize);
             return produtosFiltrados;
         }
     }

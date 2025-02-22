@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace APICatalago.DTOs
+namespace APICatalago.DTOs.CategoriasDTOs
 {
     public class CategoriaDeleteDTO
     {

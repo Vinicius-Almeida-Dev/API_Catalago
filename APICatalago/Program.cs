@@ -22,10 +22,11 @@ builder.Services.AddControllers(options =>
 {
     options.Filters.Add(typeof(ApiExceptionFilter));
 })
-.AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-}).AddNewtonsoftJson();
+.AddJsonOptions(
+    options =>
+    options.JsonSerializerOptions
+    .ReferenceHandler = ReferenceHandler.IgnoreCycles
+);
 
 //Utilizando o acesso dos arquivos de configuração
 var valor = builder.Configuration["Secao1:ChaveS1"];
@@ -44,7 +45,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IProdutoHibridoRepository, ProdutoHibridoRepository>();
 builder.Services.AddScoped<ICategoriaHibridoRepository, CategoriaHibridoRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddAutoMapper(typeof(ProdutoDTOMappingProfile));   
+builder.Services.AddAutoMapper(typeof(ProdutoDTOMappingProfile));
 
 // O tipo de filtro inserido no conteiner DI, é utilizado como um atributo - ele está em TesteController.
 builder.Services.AddScoped<ApiLoggingFilter>();

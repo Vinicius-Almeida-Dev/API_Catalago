@@ -1,12 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace APICatalago.DTOs
+namespace APICatalago.DTOs.CategoriasDTOs
 {
-    public class CategoriaDTO
+    public class CategoriaCreateDTO
     {
-        [Key]
-        public int CategoriaId { get; set; }
-
         [Required]
         [StringLength(80)]
         public string? Nome { get; set; }

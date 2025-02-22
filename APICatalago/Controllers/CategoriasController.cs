@@ -1,5 +1,6 @@
-﻿using APICatalago.DTOs;
+﻿using APICatalago.DTOs.CategoriasDTOs;
 using APICatalago.DTOs.Mappings;
+using APICatalago.DTOs.ProdutosDTOs;
 using APICatalago.Models;
 using APICatalago.Pagination;
 using APICatalago.Repositories.UnitOfWork;
@@ -100,28 +101,31 @@ namespace APICatalago.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CategoriaDTO>> PostCategoriaAsync(Categoria categoria)
+        public async Task<ActionResult<CategoriaDTO>> PostCategoriaAsync(CategoriaCreateDTO? categoriaDTO)
         {
             _logger.LogInformation("=================== VERBO: POST - /Categorias ===================");
 
 
-            if (categoria is null)
+            if (categoriaDTO is null)
             {
                 _logger.LogInformation($"Dados invalidos");
                 return BadRequest($"Dados invalidos");
             }
+            
 
-            var categoriaCreate = _uof.CategoriaHibridoRepository.Create(categoria);
+
+            var categoriaCreate = _uof.CategoriaHibridoRepository.Create(categoriaDTO.ToCategoriaCreate());
             await _uof.CommitAsync();
 
-            categoriaCreate.ToCategoriaDTO();
+            
+           var categoriaConvertDto =  categoriaCreate.ToCategoriaDTO();
 
-            return new CreatedAtRouteResult("ObterCategoria", new { id = categoriaCreate.CategoriaId }, categoriaCreate.ToCategoriaDTO());
+            return new CreatedAtRouteResult("ObterCategoria", new { id = categoriaConvertDto.CategoriaId }, categoriaConvertDto);
 
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<CategoriaDTO>> PutCategoriaAsync(int id, Categoria categoria)
+        public async Task<ActionResult<CategoriaDTO>> PutCategoriaAsync(int id, CategoriaDTO categoria)
         {
             _logger.LogInformation("=================== VERBO: PUT - /Categorias ===================");
 
@@ -131,10 +135,10 @@ namespace APICatalago.Controllers
                 return BadRequest($"Dados invalidos");
             }
 
-            var categariaUpdate = _uof.CategoriaHibridoRepository.Update(categoria);
+            var categariaUpdate = _uof.CategoriaHibridoRepository.Update(categoria.ToCategoria());
             await _uof.CommitAsync();
 
-            return Ok(categoria.ToCategoriaDTO());
+            return Ok(categariaUpdate.ToCategoriaDTO());
         }
 
         [HttpDelete("{id:int}")]

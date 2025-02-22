@@ -1,13 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace APICatalago.DTOs
+namespace APICatalago.DTOs.ProdutosDTOs
 {
-    public class ProdutoDTO
+    public class ProdutoCreateDTO
     {
-        [Key]
-        public int ProdutoId { get; set; }
-
         [Required]
         [StringLength(80)]
         public string? Nome { get; set; }
