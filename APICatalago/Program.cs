@@ -65,7 +65,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.EnvironmentName.Contains("Development"))
 {
     app.UseSwagger();
     app.UseSwaggerUI();

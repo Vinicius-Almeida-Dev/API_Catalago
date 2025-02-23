@@ -1,4 +1,7 @@
-﻿namespace APICatalogo.Logging;
+﻿using System.Diagnostics;
+using System.IO;
+
+namespace APICatalogo.Logging;
 
 public class CustomerLogger : ILogger
 {
@@ -31,8 +34,13 @@ public class CustomerLogger : ILogger
 
     private void EscreverTextoNoArquivo(string mensagem)
     {
-        string caminhoArquivoLog = $@"d:\dados\Log\log.txt";
-        using (StreamWriter streamWriter = new StreamWriter(caminhoArquivoLog, true))
+        string caminho = Path.Combine(AppContext.BaseDirectory, "Log");
+        string escritaLog = $@"{caminho}\log.txt";
+
+        if (!Directory.Exists(caminho))
+            Directory.CreateDirectory(caminho);
+
+        using (StreamWriter streamWriter = new StreamWriter(escritaLog, true))
         {
             try
             {
