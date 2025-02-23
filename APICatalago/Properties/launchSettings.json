@@ -9,14 +9,14 @@
     }
   },
   "profiles": {
-    "Development": {
+    "Development_Desktop": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5270",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development_Desktop"
       }
     },
     "Development_Notebook": {

@@ -54,8 +54,6 @@ builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderCon
     LogLevel = LogLevel.Information
 }));
 
-
-
 // esses parâmetros desabilitam a inferência do FromService sem a necessidade do atributo, ou habilitam.
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
