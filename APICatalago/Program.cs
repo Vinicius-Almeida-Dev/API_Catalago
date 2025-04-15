@@ -60,6 +60,20 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
     options.DisableImplicitFromServicesParameters = false;
 });
 
+
+// Utilizando JWT no projeto
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication("Bearer").AddJwtBearer();
+
+builder.Configuration
+    .SetBasePath(builder.Environment.ContentRootPath)
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
+
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

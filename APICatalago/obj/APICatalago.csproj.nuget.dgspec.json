@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Vinic\\OneDrive\\Área de Trabalho\\Projetos\\API_Catalago\\APICatalago\\APICatalago.csproj": {}
+    "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\APICatalago.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Vinic\\OneDrive\\Área de Trabalho\\Projetos\\API_Catalago\\APICatalago\\APICatalago.csproj": {
+    "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\APICatalago.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Vinic\\OneDrive\\Área de Trabalho\\Projetos\\API_Catalago\\APICatalago\\APICatalago.csproj",
+        "projectUniqueName": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\APICatalago.csproj",
         "projectName": "APICatalago",
-        "projectPath": "C:\\Users\\Vinic\\OneDrive\\Área de Trabalho\\Projetos\\API_Catalago\\APICatalago\\APICatalago.csproj",
-        "packagesPath": "C:\\Users\\Vinic\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Vinic\\OneDrive\\Área de Trabalho\\Projetos\\API_Catalago\\APICatalago\\obj\\",
+        "projectPath": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\APICatalago.csproj",
+        "packagesPath": "C:\\Users\\Vinicius Almeida\\.nuget\\packages\\",
+        "outputPath": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Vinic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Vinicius Almeida\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -58,6 +59,10 @@
               "target": "Package",
               "version": "[12.0.1, )"
             },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.14, )"
+            },
             "Microsoft.AspNetCore.JsonPatch": {
               "target": "Package",
               "version": "[9.0.1, )"
@@ -65,6 +70,12 @@
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
               "version": "[8.0.12, )"
+            },
+            "Microsoft.CodeAnalysis.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.3.4, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -118,7 +129,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -4,6 +4,7 @@ using APICatalago.DTOs.ProdutosDTOs;
 using APICatalago.Models;
 using APICatalago.Pagination;
 using APICatalago.Repositories.UnitOfWork;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
@@ -67,6 +68,7 @@ namespace APICatalago.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetCategoriasAsync()
         {
             _logger.LogInformation("=================== VERBO: GET - /Categorias ===================");
