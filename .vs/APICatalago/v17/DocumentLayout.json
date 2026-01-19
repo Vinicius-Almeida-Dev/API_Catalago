@@ -1,14 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\0-Meus_Projetos\\APICatalago\\",
+  "WorkspaceRootPath": "C:\\Users\\Vinic\\OneDrive\\\u00C1rea de Trabalho\\Projetos\\API-Catalago\\API_Catalago\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}|APICatalago\\APICatalago.csproj|c:\\0-meus_projetos\\apicatalago\\apicatalago\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}|APICatalago\\APICatalago.csproj|c:\\users\\vinic\\onedrive\\\u00E1rea de trabalho\\projetos\\api-catalago\\api_catalago\\apicatalago\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}|APICatalago\\APICatalago.csproj|solutionrelative:apicatalago\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}|APICatalago\\APICatalago.csproj|c:\\users\\vinic\\onedrive\\\u00E1rea de trabalho\\projetos\\api-catalago\\api_catalago\\apicatalago\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}|APICatalago\\APICatalago.csproj|solutionrelative:apicatalago\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}|APICatalago\\APICatalago.csproj|c:\\0-meus_projetos\\apicatalago\\apicatalago\\controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}|APICatalago\\APICatalago.csproj|solutionrelative:apicatalago\\controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}|APICatalago\\APICatalago.csproj|c:\\users\\vinic\\onedrive\\\u00E1rea de trabalho\\projetos\\api-catalago\\api_catalago\\apicatalago\\controllers\\produtoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}|APICatalago\\APICatalago.csproj|solutionrelative:apicatalago\\controllers\\produtoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}|APICatalago\\APICatalago.csproj|c:\\users\\vinic\\onedrive\\\u00E1rea de trabalho\\projetos\\api-catalago\\api_catalago\\apicatalago\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{122F6269-F1A2-49FD-A6FB-08AC1C25BCA7}|APICatalago\\APICatalago.csproj|solutionrelative:apicatalago\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,36 +26,59 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "APICatalago\\Properties\\launchSettings.json",
-              "ToolTip": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\Properties\\launchSettings.json",
-              "RelativeToolTip": "APICatalago\\Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-07-16T14:10:30.475Z",
+              "DocumentIndex": 2,
+              "Title": "ProdutosController.cs",
+              "DocumentMoniker": "C:\\Users\\Vinic\\OneDrive\\\u00C1rea de Trabalho\\Projetos\\API-Catalago\\API_Catalago\\APICatalago\\Controllers\\ProdutosController.cs",
+              "RelativeDocumentMoniker": "APICatalago\\Controllers\\ProdutosController.cs",
+              "ToolTip": "C:\\Users\\Vinic\\OneDrive\\\u00C1rea de Trabalho\\Projetos\\API-Catalago\\API_Catalago\\APICatalago\\Controllers\\ProdutosController.cs",
+              "RelativeToolTip": "APICatalago\\Controllers\\ProdutosController.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAlwHEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-19T09:16:33.39Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CategoriasController.cs",
-              "DocumentMoniker": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\Controllers\\CategoriasController.cs",
-              "RelativeDocumentMoniker": "APICatalago\\Controllers\\CategoriasController.cs",
-              "ToolTip": "C:\\0-Meus_Projetos\\APICatalago\\APICatalago\\Controllers\\CategoriasController.cs",
-              "RelativeToolTip": "APICatalago\\Controllers\\CategoriasController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\Vinic\\OneDrive\\\u00C1rea de Trabalho\\Projetos\\API-Catalago\\API_Catalago\\APICatalago\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "APICatalago\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\Vinic\\OneDrive\\\u00C1rea de Trabalho\\Projetos\\API-Catalago\\API_Catalago\\APICatalago\\Properties\\launchSettings.json",
+              "RelativeToolTip": "APICatalago\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-19T09:15:55.533Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Vinic\\OneDrive\\\u00C1rea de Trabalho\\Projetos\\API-Catalago\\API_Catalago\\APICatalago\\appsettings.json",
+              "RelativeDocumentMoniker": "APICatalago\\appsettings.json",
+              "ToolTip": "C:\\Users\\Vinic\\OneDrive\\\u00C1rea de Trabalho\\Projetos\\API-Catalago\\API_Catalago\\APICatalago\\appsettings.json",
+              "RelativeToolTip": "APICatalago\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAACIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-19T09:15:12.627Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Vinic\\OneDrive\\\u00C1rea de Trabalho\\Projetos\\API-Catalago\\API_Catalago\\APICatalago\\Program.cs",
+              "RelativeDocumentMoniker": "APICatalago\\Program.cs",
+              "ToolTip": "C:\\Users\\Vinic\\OneDrive\\\u00C1rea de Trabalho\\Projetos\\API-Catalago\\API_Catalago\\APICatalago\\Program.cs",
+              "RelativeToolTip": "APICatalago\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-16T14:10:26.523Z"
+              "WhenOpened": "2026-01-19T09:09:22.271Z",
+              "EditorCaption": ""
             }
           ]
         }

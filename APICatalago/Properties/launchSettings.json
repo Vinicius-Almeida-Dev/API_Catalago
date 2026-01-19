@@ -9,26 +9,6 @@
     }
   },
   "profiles": {
-    "Desktop": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5270",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Desktop"
-      }
-    },
-    "Development.Notebook": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5270",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development.Notebook"
-      }
-    },
     "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,

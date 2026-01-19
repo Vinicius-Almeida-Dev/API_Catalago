@@ -71,9 +71,6 @@ builder.Configuration
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
     .AddEnvironmentVariables();
 
-
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
